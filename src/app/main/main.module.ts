@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
-import { AngularMaterialModule } from '../_shared/modules/angular-material/angular-material.module';
+import { AngularMaterialModulesModule } from '../_shared/modules/angular-material-modules.module';
 
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [
+    MainComponent
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModulesModule
   ]
 })
 export class MainModule { }

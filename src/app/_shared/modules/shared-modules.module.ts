@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const modules = [
-    MatCardModule
+  FormsModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({
@@ -13,4 +14,4 @@ const modules = [
   ],
   exports: [modules]
 })
-export class AngularMaterialModule { }
+export class SharedModulesModule { }
