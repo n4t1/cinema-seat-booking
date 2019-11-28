@@ -6,6 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
+import { MainModule } from './main/main.module';
+import { LoginModule } from './login/login.module';
+import { BookModule } from './book/book.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,6 +18,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    BookModule,
+    LoginModule,
+    MainModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

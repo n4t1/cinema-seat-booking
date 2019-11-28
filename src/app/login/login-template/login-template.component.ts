@@ -28,6 +28,6 @@ export class LoginTemplateComponent implements OnInit {
   }
 
   public submit() {
-    this.router.navigate(['main']);
+    this.router.navigate(['book']);
   }
 }

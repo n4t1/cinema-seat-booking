@@ -9,6 +9,8 @@ import { CalendarComponent } from './repertuar/calendar/calendar.component';
 import { DayTemplateComponent } from './repertuar/calendar/day-template/day-template.component';
 import { MoviesTableComponent } from './repertuar/movies-table/movies-table.component';
 import { MovieTemplateComponent } from './repertuar/movies-table/movie-template/movie-template.component';
+import { SharedModulesModule } from '../_shared/modules/shared-modules.module';
+import { MainSharedServicesModule } from './_shared/services/_main-shared-services.module';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { MovieTemplateComponent } from './repertuar/movies-table/movie-template/
   imports: [
     CommonModule,
     MainRoutingModule,
-    AngularMaterialModulesModule
+    AngularMaterialModulesModule,
+    SharedModulesModule,
+    MainSharedServicesModule
   ]
 })
 export class MainModule { }
