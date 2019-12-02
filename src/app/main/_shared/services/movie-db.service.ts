@@ -3,8 +3,10 @@ import { HttpClient } from "@angular/common/http";
 
 import { map, catchError } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
-import { QueryMoviesDTO } from "../models/query-movies/query-movies.class";
-import { MovieDetailsDTO } from "../models/movie-details/movie-details.class";
+import { QueryMoviesDTO } from "../models/query-movies/queryMoviesDTO";
+import { MovieDetailsDTO } from "../models/movie-details/movieDetailsDTO";
+import { IQueryMoviesRest } from "../models/query-movies/queryMoviesREST.interface";
+import { IMovieDetailsRest } from "../models/movie-details/movieDetailsREST.interface";
 @Injectable()
 export class MovieDbService {
   private readonly API_KEY = "?api_key=fe1a1a777485b3e314f16af8e051dfb4";
@@ -15,10 +17,15 @@ export class MovieDbService {
     const url: string = `https://api.themoviedb.org/3/movie/${movie_id}${this.API_KEY}`;
     const errorUrl: string = `https://api.themoviedb.org/3/movie/${movie_id}`;
 
-    return this.httpClient.get<MovieDetailsDTO>(url).pipe(
+    return this.httpClient.get<IMovieDetailsRest>(url).pipe(
       catchError(error => {
         console.log(errorUrl, error);
         return throwError(error);
+      }),
+      map(response => {
+        const movieDetails = new MovieDetailsDTO().deserialize(response);
+        console.log("getMovieDetails: ", movieDetails);
+        return movieDetails;
       })
     );
   }
@@ -29,15 +36,15 @@ export class MovieDbService {
     const url: string = `https://api.themoviedb.org/3/search/movie${this.API_KEY}${query}`;
     const errorUrl: string = `https://api.themoviedb.org/3/search/movie${query}`;
 
-    return this.httpClient.get<string>(url).pipe(
+    return this.httpClient.get<IQueryMoviesRest>(url).pipe(
       catchError(error => {
         console.log(errorUrl, error);
         return throwError(error);
       }),
-      map((response: string) => {
-        const queryMovie: QueryMoviesDTO = new QueryMoviesDTO().parse(response);
-        console.log("getSearchFromQueryMovie: ", queryMovie);
-        return queryMovie;
+      map(response => {
+        const queryMovies = new QueryMoviesDTO().deserialize(response);
+        console.log("getSearchFromQueryMovie: ", queryMovies);
+        return queryMovies;
       })
     );
   }
