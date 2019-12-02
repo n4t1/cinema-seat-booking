@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { MovieDbService } from './movie-db.service';
+import { MovieTMDBService } from "./movie-tmdb.service";
 
 import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   imports: [CommonModule, HttpClientModule],
-  providers: [MovieDbService]
+  providers: [MovieTMDBService]
 })
 export class MainSharedServicesModule {}
