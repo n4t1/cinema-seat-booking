@@ -18,15 +18,15 @@ export class MovieTMDBService {
     const errorUrl: string = `https://api.themoviedb.org/3/movie/${movie_id}`;
 
     return this.httpClient.get<IMovieDetailsRest>(url).pipe(
-      catchError(error => {
-        console.log(errorUrl, error);
-        return throwError(error);
-      }),
       map(response => {
         const movieDetails = new MovieDetailsDTO().deserialize(response);
         console.log("getMovieDetails: ", movieDetails);
         return movieDetails;
-      })
+      },
+      catchError(error => {
+        console.log(errorUrl, error);
+        return throwError(error);
+      }))
     );
   }
 
@@ -38,20 +38,20 @@ export class MovieTMDBService {
     const errorUrl: string = `https://api.themoviedb.org/3/search/movie${query}`;
 
     return this.httpClient.get<IQueryMoviesRest>(url).pipe(
-      catchError(error => {
-        console.log(errorUrl, error);
-        return throwError(error);
-      }),
       map(response => {
         const queryMovies = new QueryMoviesDTO().deserialize(response);
         console.log("getSearchFromQueryMovie: ", queryMovies);
         return queryMovies;
-      })
+      },
+      catchError(error => {
+        console.log(errorUrl, error);
+        return throwError(error);
+      }))
     );
   }
 
   public getImagesURL(posterPath: string): string {
-    return `https://image.tmdb.org/t/p/w500/${posterPath}.png`;
+    return `https://image.tmdb.org/t/p/w500/${posterPath}`;
   }
 }
 
