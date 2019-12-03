@@ -2,13 +2,15 @@
   <div class="content">
     <div class="movie">
       <div class="poster">
-        <img [src]=""/>
+        <img *ngIf="posterURL" [src]="posterURL" alt=""/>
       </div>
       <div class="information"></div>
     </div>
 
     <div class="time">
-       
+       <div *ngFor="let time of playTimes">
+         {{time}}
+       </div>
     </div>
   </div>
 </div>
