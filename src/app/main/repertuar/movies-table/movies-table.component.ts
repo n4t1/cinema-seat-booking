@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
+import { MoviePlayDTO } from '@shared/models/repertuar/repertuarDTO';
 
 @Component({
   selector: 'app-movies-table',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MoviesTableComponent implements OnInit {
 
-  constructor() { 
+  public movies: MoviePlayDTO[];
 
+  constructor(
+    private repertuarService: RepertuarService
+  ) {
+    this.movies = this.repertuarService.allMovies;
   }
 
   ngOnInit() {

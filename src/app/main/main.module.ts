@@ -6,6 +6,7 @@ import { AngularMaterialModulesModule } from '../_shared/modules/angular-materia
 import { SharedModulesModule } from '../_shared/modules/shared-modules.module';
 import { MainSharedServicesModule } from './_shared/services/main-shared-services.module';
 import { RepertuarModule } from './repertuar/repertuar.module';
+import { SharedServicesModule } from '@shared/services/shared-services.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { RepertuarModule } from './repertuar/repertuar.module';
     MainRoutingModule,
     RepertuarModule,
     MainSharedServicesModule,
+    SharedServicesModule,
     AngularMaterialModulesModule,
     SharedModulesModule,
   ]

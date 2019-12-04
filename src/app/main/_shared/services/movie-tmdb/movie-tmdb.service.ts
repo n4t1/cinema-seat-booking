@@ -19,9 +19,9 @@ export class MovieTMDBService {
 
     return this.httpClient.get<IMovieDetailsRest>(url).pipe(
       map(response => {
-        const movieDetails = new MovieDetailsDTO().deserialize(response);
-        console.log("getMovieDetails: ", movieDetails);
-        return movieDetails;
+        const deserializedResponse = new MovieDetailsDTO().deserialize(response);
+        console.log("getMovieDetails: ", deserializedResponse);
+        return deserializedResponse;
       },
       catchError(error => {
         console.log(errorUrl, error);
@@ -39,9 +39,9 @@ export class MovieTMDBService {
 
     return this.httpClient.get<IQueryMoviesRest>(url).pipe(
       map(response => {
-        const queryMovies = new QueryMoviesDTO().deserialize(response);
-        console.log("getSearchFromQueryMovie: ", queryMovies);
-        return queryMovies;
+        const deserializedResponse = new QueryMoviesDTO().deserialize(response);
+        console.log("getSearchFromQueryMovie: ", deserializedResponse);
+        return deserializedResponse;
       },
       catchError(error => {
         console.log(errorUrl, error);

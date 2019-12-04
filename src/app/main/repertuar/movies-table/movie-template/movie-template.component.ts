@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MovieTMDBService } from '@main/shared/services/movie-tmdb/movie-tmdb.service';
+import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 
 @Component({
   selector: 'app-movie-template',
@@ -21,10 +22,9 @@ export class MovieTemplateComponent implements OnInit {
   }
   private _tmdbID: string;
 
-  @Input() public playTimes: string[];
-
   constructor(
-    private movieTMDBService: MovieTMDBService
+    private movieTMDBService: MovieTMDBService,
+    private repertuarService: RepertuarService
   ) { }
 
   ngOnInit() {

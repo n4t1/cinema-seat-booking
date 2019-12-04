@@ -1,4 +1,7 @@
-<p>movies-table works!</p>
-
-
-<app-movie-template [tmdbID]="550"></app-movie-template>
+<div class="container">
+  <div class="content">
+    <div class="movies-template" *ngFor="let movie of movies">
+      <app-movie-template [tmdbID]="movie.tmdb_id"></app-movie-template>
+    </div>
+  </div>
+</div>
