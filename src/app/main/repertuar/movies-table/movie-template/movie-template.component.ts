@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MovieTMDBService } from 'src/app/main/_shared/services/movie-tmdb.service';
+import { MovieTMDBService } from '@main/shared/services/movie-tmdb/movie-tmdb.service';
 
 @Component({
   selector: 'app-movie-template',

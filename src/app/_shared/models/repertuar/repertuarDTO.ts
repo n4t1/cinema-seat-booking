@@ -1,5 +1,5 @@
 import { IMoviePlayRest, IRepertuarRest } from "./repertuarREST.interface";
-import { IDeserialize } from "src/app/_core/models/deserialize.interface";
+import { IDeserialize } from "@core/models/deserialize.interface";
 
 export class MoviePlayDTO
   implements IDeserialize<MoviePlayDTO, IMoviePlayRest>, IMoviePlayRest {
