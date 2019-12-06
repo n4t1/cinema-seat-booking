@@ -1,8 +1,8 @@
 import {
   IQueryMovieRest as IQueryMovieDetailsRest,
   IQueryMoviesRest
-} from "./queryMoviesREST.interface";
-import { IDeserialize } from "@core/models/deserialize.interface";
+} from './queryMoviesREST.interface';
+import { IDeserialize } from '@core/models/deserialize.interface';
 
 export class QueryMovieDetailsDTO
   implements

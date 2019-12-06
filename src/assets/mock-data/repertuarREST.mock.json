@@ -7,10 +7,13 @@
       "room_id": 1,
       "tmdb_id": 12653,
       "play_times": [
-        "09:00:00",
+        "09:20:00",
         "13:00:00",
         "21:00:00"
-      ]
+      ],
+      "dubbing": true,
+      "subtitles": null,
+      "local_lang": null
     },
     {
       "id": "1",
@@ -22,7 +25,10 @@
         "11:00:00",
         "16:00:00",
         "23:00:00"
-      ]
+      ],
+      "dubbing": true,
+      "subtitles": null,
+      "local_lang": null
     },
     {
       "id": "2",
@@ -34,7 +40,10 @@
         "09:00:00",
         "13:00:00",
         "21:00:00"
-      ]
+      ],
+      "dubbing": null,
+      "subtitles": true,
+      "local_lang": null
     },
     {
       "id": "3",
@@ -46,7 +55,10 @@
         "09:00:00",
         "13:00:00",
         "21:00:00"
-      ]
+      ],
+      "dubbing": null,
+      "subtitles": null,
+      "local_lang": true
     }
   ]
 }

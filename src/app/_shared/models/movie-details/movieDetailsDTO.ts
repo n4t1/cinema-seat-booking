@@ -4,8 +4,8 @@ import {
   IProductionCountryRest,
   IMovieDetailsRest,
   ISpokenLanguageRest
-} from "./movieDetailsREST.interface";
-import { IDeserialize } from "@core/models/deserialize.interface";
+} from './movieDetailsREST.interface';
+import { IDeserialize } from '@core/models/deserialize.interface';
 
 export class GenreDTO
   implements IDeserialize<GenreDTO, IGenreRest>, IGenreRest {
