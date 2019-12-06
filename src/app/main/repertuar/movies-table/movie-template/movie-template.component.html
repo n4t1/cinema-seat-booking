@@ -1,36 +1,46 @@
 <div class="container">
   <div class="content">
     <div class="movie">
-
       <div class="poster">
-        <img *ngIf="posterURL" [src]="posterURL" [alt]="posterAlt"/>
+        <img *ngIf="posterURL" [src]="posterURL" [alt]="posterAlt" />
       </div>
 
       <div class="information">
-        <div class="genres">
-          <span *ngFor="let genre of genres">
-            <span>{{genre.name}}</span><span class="backslash"> / </span>
-          </span>
+        <div class="movie-details">
+          <div class="title">{{ title }}</div>
+
+          <div class="genres">
+            <span *ngFor="let genre of genres">
+              <span>{{ genre.name }}</span
+              ><span class="backslash"> / </span>
+            </span>
+
+            <div class="runtime">
+              <span>Czas trwania: </span>
+              <span>{{ runtime }}</span
+              ><span> min.</span>
+            </div>
+
+            <div class="production">
+              <span>Produkcja: </span>
+              <span *ngFor="let productionCountry of productionCountries">
+                <span>{{ productionCountry.name }}</span
+                ><span class="backslash">/</span>
+              </span>
+              <span class="releaseDate">[{{ releaseDate | dateFormater: 'y' }}]</span>
+            </div>
+          </div>
         </div>
 
-        <div class="runtime">
-          <span>Czas trwania: </span><span>{{runtime}}</span><span> min.</span>
-        </div>
-
-        <div class="production">
-          <span>Produkcja: </span>
-          <span *ngFor="let productionCountry of productionCountries">
-            <span>{{productionCountry.name}}</span><span class="backslash">/</span>
-          </span>
-          <span class="releaseDate">[{{releaseDate | dateFormater:'y'}}]</span>
+        <div class="play-times">
+          <div *ngFor="let time of playTimes">
+            <span class="time">
+              <span>{{ time | timeFormater: selectedDay:'HH:mm' }}</span>
+              <span></span>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="time">
-       <div *ngFor="let time of playTimes">
-         {{time | timeFormater:selectedDay:'HH:mm'}}
-       </div>
     </div>
   </div>
 </div>

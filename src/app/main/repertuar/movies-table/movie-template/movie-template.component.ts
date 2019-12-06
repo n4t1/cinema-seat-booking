@@ -15,6 +15,7 @@ export class MovieTemplateComponent implements OnInit {
   public runtime: number; // show in minutes
   public productionCountries: ProductionCountryDTO[];
   public releaseDate: string;
+  public title: string;
 
   public playTimes: string[];
   public selectedDay: string;
@@ -50,14 +51,13 @@ export class MovieTemplateComponent implements OnInit {
 
   private setMovieDetails(tmdbID: string) {
     this.movieTMDBService.getMovieDetails(tmdbID).subscribe(movieDetails => {
-      this.posterURL = this.movieTMDBService.getImagesURL(
-        movieDetails.poster_path
-      );
+      this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.poster_path);
       this.posterAlt = `Plakat ${movieDetails.title}`;
       this.genres = movieDetails.genres;
       this.runtime = movieDetails.runtime;
       this.productionCountries = movieDetails.production_countries;
       this.releaseDate = movieDetails.release_date;
+      this.title = movieDetails.title;
     });
   }
 
