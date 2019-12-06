@@ -9,6 +9,10 @@ export class MoviePlayDTO
   public room_id: number;
   public tmdb_id: number;
   public play_times: string[];
+  public dubbing: boolean;
+  public subtitles: boolean;
+  public local_lang: boolean;
+  public threeD: boolean;
 
   public deserialize(obj: IMoviePlayRest): MoviePlayDTO {
     this.id = obj.id;
@@ -17,6 +21,10 @@ export class MoviePlayDTO
     this.room_id = obj.room_id;
     this.tmdb_id = obj.tmdb_id;
     this.play_times = obj.play_times;
+    this.dubbing = obj.dubbing;
+    this.subtitles = obj.subtitles;
+    this.local_lang = obj.local_lang;
+    this.threeD = obj.threeD;
     return this;
   }
 }

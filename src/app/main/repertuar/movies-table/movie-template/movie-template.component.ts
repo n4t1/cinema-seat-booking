@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
+import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
 
 @Component({
   selector: 'app-movie-template',
@@ -8,15 +9,21 @@ import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
   styleUrls: ['./movie-template.component.scss']
 })
 export class MovieTemplateComponent implements OnInit {
-
   public posterURL: string;
+  public posterAlt: string;
+  public genres: GenreDTO[];
+  public runtime: number; // show in minutes
+  public productionCountries: ProductionCountryDTO[];
+  public releaseDate: string;
+
   public playTimes: string[];
+  public selectedDay: string;
 
   @Input()
   public set tmdbID(value: string) {
     this._tmdbID = value;
 
-    this.setMoviePosterURL(this.tmdbID);
+    this.setMovieDetails(this.tmdbID);
   }
   public get tmdbID(): string {
     return this._tmdbID;
@@ -37,14 +44,20 @@ export class MovieTemplateComponent implements OnInit {
   constructor(
     private movieTMDBService: MovieTMDBService,
     private repertuarService: RepertuarService
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  private setMoviePosterURL(tmdbID: string) {
-    this.movieTMDBService.getMovieDetails(tmdbID).subscribe((movieDetails) => {
-      this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.backdrop_path);
+  private setMovieDetails(tmdbID: string) {
+    this.movieTMDBService.getMovieDetails(tmdbID).subscribe(movieDetails => {
+      this.posterURL = this.movieTMDBService.getImagesURL(
+        movieDetails.poster_path
+      );
+      this.posterAlt = `Plakat ${movieDetails.title}`;
+      this.genres = movieDetails.genres;
+      this.runtime = movieDetails.runtime;
+      this.productionCountries = movieDetails.production_countries;
+      this.releaseDate = movieDetails.release_date;
     });
   }
 
@@ -54,4 +67,8 @@ export class MovieTemplateComponent implements OnInit {
     });
   }
 
+  private getSelectedCalendarDay() {
+    // TODO: change to date from calendar
+    this.selectedDay = new Date().toLocaleDateString();
+  }
 }

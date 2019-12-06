@@ -2,21 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 @Pipe({
-  name: 'timeFormater'
+  name: 'dateFormater'
 })
-export class TimeFormaterPipe implements PipeTransform {
+export class DateFormaterPipe implements PipeTransform {
   constructor(private datePipe: DatePipe) {}
 
-  transform(
-    value: string,
-    date: string = new Date().toLocaleDateString(),
-    transformPattern: string,
-    args?: any
-  ): string {
+  transform(value: string, transformPattern: string, args?: any): string {
     if (!value || value.length === 0) {
       return '';
     }
-    const convertedStringToDate: Date = new Date(date + ', ' + value);
+    const convertedStringToDate: Date = new Date(value);
     const transformedDate: string = this.datePipe.transform(
       convertedStringToDate,
       transformPattern

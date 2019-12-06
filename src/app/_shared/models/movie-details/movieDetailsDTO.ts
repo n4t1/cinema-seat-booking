@@ -111,6 +111,7 @@ export class MovieDetailsDTO
     this.original_title = obj.original_title;
     this.overview = obj.overview;
     this.popularity = obj.popularity;
+    this.poster_path = obj.poster_path;
     this.production_companies = [];
     obj.production_companies.forEach(el => {
       this.production_companies.push(
@@ -130,6 +131,7 @@ export class MovieDetailsDTO
     obj.spoken_languages.forEach(el => {
       this.spoken_languages.push(new SpokenLanguageDTO().deserialize(el));
     });
+    this.status = obj.status;
     this.tagline = obj.tagline;
     this.title = obj.title;
     this.video = obj.video;

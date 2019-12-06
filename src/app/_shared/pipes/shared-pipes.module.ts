@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TimeFormaterPipe } from './time-formater/timeFormater.pipe';
+import { DateFormaterPipe } from './date-formater/dateFormater.pipe';
 
 const pipes = [
-  TimeFormaterPipe
+   TimeFormaterPipe,
+   DateFormaterPipe
 ];
 
 @NgModule({
@@ -13,7 +15,9 @@ const pipes = [
    imports: [
       CommonModule
    ],
-   providers: [DatePipe],
+   providers: [
+      DatePipe
+   ],
    exports: [
       pipes
    ]

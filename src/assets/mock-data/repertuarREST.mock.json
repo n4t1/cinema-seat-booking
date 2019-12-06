@@ -13,7 +13,9 @@
       ],
       "dubbing": true,
       "subtitles": null,
-      "local_lang": null
+      "local_lang": null,
+      "2d": true,
+      "3d": null
     },
     {
       "id": "1",
@@ -28,7 +30,8 @@
       ],
       "dubbing": true,
       "subtitles": null,
-      "local_lang": null
+      "local_lang": null,
+      "threeD": false
     },
     {
       "id": "2",
@@ -43,7 +46,8 @@
       ],
       "dubbing": null,
       "subtitles": true,
-      "local_lang": null
+      "local_lang": null,
+      "threeD": true
     },
     {
       "id": "3",
@@ -58,7 +62,8 @@
       ],
       "dubbing": null,
       "subtitles": null,
-      "local_lang": true
+      "local_lang": true,
+      "threeD": false
     }
   ]
 }

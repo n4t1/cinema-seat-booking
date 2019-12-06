@@ -3,19 +3,19 @@ import { HttpClient } from '@angular/common/http';
 
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { QueryMoviesDTO } from '../../../main/_shared/models/query-movies/queryMoviesDTO';
-import { MovieDetailsDTO } from '../../../main/_shared/models/movie-details/movieDetailsDTO';
-import { IQueryMoviesRest } from '../../../main/_shared/models/query-movies/queryMoviesREST.interface';
-import { IMovieDetailsRest } from '../../../main/_shared/models/movie-details/movieDetailsREST.interface';
+import { QueryMoviesDTO } from '../../models/query-movies/queryMoviesDTO';
+import { MovieDetailsDTO } from '../../models/movie-details/movieDetailsDTO';
+import { IQueryMoviesRest } from '../../models/query-movies/queryMoviesREST.interface';
+import { IMovieDetailsRest } from '../../models/movie-details/movieDetailsREST.interface';
 @Injectable()
 export class MovieTMDBService {
   private readonly API_KEY = '?api_key=fe1a1a777485b3e314f16af8e051dfb4';
 
   constructor(private httpClient: HttpClient) {}
 
-  public getMovieDetails(movie_id: string): Observable<MovieDetailsDTO> {
-    const url = `https://api.themoviedb.org/3/movie/${movie_id}${this.API_KEY}`;
-    const errorUrl = `https://api.themoviedb.org/3/movie/${movie_id}`;
+  public getMovieDetails(movieId: string): Observable<MovieDetailsDTO> {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}${this.API_KEY}`;
+    const errorUrl = `https://api.themoviedb.org/3/movie/${movieId}`;
 
     return this.httpClient.get<IMovieDetailsRest>(url).pipe(
       map(
