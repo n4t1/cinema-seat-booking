@@ -1,7 +1,7 @@
 <div class="container">
   <div class="content">
-    <div class="movies-template" *ngFor="let movie of movies">
-      <app-movie-template [tmdbID]="movie.tmdb_id"></app-movie-template>
+    <div class="movies-template" *ngFor="let movie of movies; let i = index">
+      <app-movie-template [tmdbID]="movie.tmdb_id" [id]="i"></app-movie-template>
     </div>
   </div>
 </div>

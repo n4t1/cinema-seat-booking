@@ -2,11 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
-import { AngularMaterialModulesModule } from '../_shared/modules/angular-material-modules.module';
-import { SharedModulesModule } from '../_shared/modules/shared-modules.module';
-import { MainSharedServicesModule } from './_shared/services/main-shared-services.module';
 import { RepertuarModule } from './repertuar/repertuar.module';
-import { SharedServicesModule } from '@shared/services/shared-services.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -15,12 +12,9 @@ import { SharedServicesModule } from '@shared/services/shared-services.module';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     MainRoutingModule,
-    RepertuarModule,
-    MainSharedServicesModule,
-    SharedServicesModule,
-    AngularMaterialModulesModule,
-    SharedModulesModule,
+    RepertuarModule
   ]
 })
 export class MainModule { }

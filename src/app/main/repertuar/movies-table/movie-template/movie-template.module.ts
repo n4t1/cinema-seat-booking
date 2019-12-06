@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieTemplateComponent } from './movie-template.component';
-import { AngularMaterialModulesModule } from '@shared/modules/angular-material-modules.module';
-import { SharedModulesModule } from '@shared/modules/shared-modules.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -10,8 +9,7 @@ import { SharedModulesModule } from '@shared/modules/shared-modules.module';
   declarations: [MovieTemplateComponent],
   imports: [
     CommonModule,
-    AngularMaterialModulesModule,
-    SharedModulesModule
+    SharedModule
   ],
   exports: [MovieTemplateComponent]
 })

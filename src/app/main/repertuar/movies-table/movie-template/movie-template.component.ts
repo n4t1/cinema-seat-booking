@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MovieTMDBService } from '@main/shared/services/movie-tmdb/movie-tmdb.service';
+import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 export class MovieTemplateComponent implements OnInit {
 
   public posterURL: string;
+  public playTimes: string[];
 
   @Input()
   public set tmdbID(value: string) {
@@ -22,6 +23,17 @@ export class MovieTemplateComponent implements OnInit {
   }
   private _tmdbID: string;
 
+  @Input()
+  public set id(value: number) {
+    this._id = value;
+
+    this.setMoviePlayTimes(this.id);
+  }
+  public get id(): number {
+    return this._id;
+  }
+  private _id: number;
+
   constructor(
     private movieTMDBService: MovieTMDBService,
     private repertuarService: RepertuarService
@@ -30,9 +42,15 @@ export class MovieTemplateComponent implements OnInit {
   ngOnInit() {
   }
 
-  public setMoviePosterURL(tmdbID: string) {
-    this.movieTMDBService.getMovieDetails(tmdbID).subscribe((rest) => {
-      this.posterURL = this.movieTMDBService.getImagesURL(rest.backdrop_path);
+  private setMoviePosterURL(tmdbID: string) {
+    this.movieTMDBService.getMovieDetails(tmdbID).subscribe((movieDetails) => {
+      this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.backdrop_path);
+    });
+  }
+
+  private setMoviePlayTimes(id: number) {
+    this.repertuarService.getMoviePlayTimes(id).subscribe(playTimes => {
+      this.playTimes = playTimes;
     });
   }
 

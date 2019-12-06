@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RepertuarComponent } from './repertuar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { MoviesTableModule } from './movies-table/movies-table.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -12,6 +13,7 @@ import { MoviesTableModule } from './movies-table/movies-table.module';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     CalendarModule,
     MoviesTableModule
   ],

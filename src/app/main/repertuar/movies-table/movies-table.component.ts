@@ -14,10 +14,16 @@ export class MoviesTableComponent implements OnInit {
   constructor(
     private repertuarService: RepertuarService
   ) {
-    this.movies = this.repertuarService.allMovies;
   }
 
   ngOnInit() {
+    this.initMovies();
+  }
+
+  private initMovies() {
+    this.repertuarService.allMovies.subscribe(movies => {
+      this.movies = movies;
+    });
   }
 
 }

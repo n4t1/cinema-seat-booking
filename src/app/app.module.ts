@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './login/login.module';
 import { BookModule } from './book/book.module';
+import { SharedServicesModule } from '@shared/services/shared-services.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BookModule } from './book/book.module';
     BookModule,
     LoginModule,
     MainModule,
+    SharedServicesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
