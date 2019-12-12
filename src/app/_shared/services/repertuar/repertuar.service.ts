@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import mockRepertuarREST from '../../../../assets/mock-data/repertuarREST.mock.json';
 import {
   RepertuarDTO,
-  MoviePlayDTO
+  MoviePlayDTO,
+  MoviePlayViewEnum,
+  MoviePlayLangEnum
 } from '@shared/models/repertuar/repertuarDTO.js';
 import { IRepertuarRest } from '@shared/models/repertuar/repertuarREST.interface.js';
 import { HttpClient } from '@angular/common/http';
@@ -34,6 +36,15 @@ export class RepertuarService {
     );
   }
 
+  public get localeLang(): Observable<string> {
+    return this.getRepertuar.pipe(
+      map(repertuar => {
+        return repertuar.locale_lang;
+      }),
+      first()
+    );
+  }
+
   public getMovie(id: number): Observable<MoviePlayDTO> {
     return this.allMovies.pipe(
       map(moviesPlay => {
@@ -47,6 +58,24 @@ export class RepertuarService {
     return this.getMovie(id).pipe(
       map(moviePlay => {
         return moviePlay.play_times;
+      }),
+      first()
+    );
+  }
+
+  public getMovieLang(id: number): Observable<MoviePlayLangEnum[]> {
+    return this.getMovie(id).pipe(
+      map(moviePlay => {
+        return moviePlay.lang;
+      }),
+      first()
+    );
+  }
+
+  public getMovieView(id: number): Observable<MoviePlayViewEnum[]> {
+    return this.getMovie(id).pipe(
+      map(moviePlay => {
+        return moviePlay.view;
       }),
       first()
     );

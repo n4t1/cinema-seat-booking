@@ -1,18 +1,26 @@
-import { IMoviePlayRest, IRepertuarRest } from "./repertuarREST.interface";
-import { IDeserialize } from "@core/models/deserialize.interface";
+import { IMoviePlayRest, IRepertuarRest } from './repertuarREST.interface';
+import { IDeserialize } from '@core/models/deserialize.interface';
 
-export class MoviePlayDTO
-  implements IDeserialize<MoviePlayDTO, IMoviePlayRest>, IMoviePlayRest {
+export enum MoviePlayLangEnum {
+  DUBBING = 'DUBBING',
+  SUBTITLES = 'SUBTITLES',
+  LOCAL = 'LOCAL'
+}
+
+export enum MoviePlayViewEnum {
+  THREE_D = 'THREE_D',
+  TWO_D = 'TWO_D'
+}
+
+export class MoviePlayDTO implements IDeserialize<MoviePlayDTO, IMoviePlayRest>, IMoviePlayRest {
   public id: string;
   public start_date: string;
   public end_data: string;
   public room_id: number;
   public tmdb_id: number;
   public play_times: string[];
-  public dubbing: boolean;
-  public subtitles: boolean;
-  public local_lang: boolean;
-  public threeD: boolean;
+  public lang: MoviePlayLangEnum[];
+  public view: MoviePlayViewEnum[];
 
   public deserialize(obj: IMoviePlayRest): MoviePlayDTO {
     this.id = obj.id;
@@ -21,19 +29,38 @@ export class MoviePlayDTO
     this.room_id = obj.room_id;
     this.tmdb_id = obj.tmdb_id;
     this.play_times = obj.play_times;
-    this.dubbing = obj.dubbing;
-    this.subtitles = obj.subtitles;
-    this.local_lang = obj.local_lang;
-    this.threeD = obj.threeD;
+    this.lang = obj.lang.map(lang => {
+      switch (lang) {
+        case MoviePlayLangEnum.DUBBING:
+          return MoviePlayLangEnum.DUBBING;
+        case MoviePlayLangEnum.SUBTITLES:
+          return MoviePlayLangEnum.SUBTITLES;
+        case MoviePlayLangEnum.LOCAL:
+          return MoviePlayLangEnum.LOCAL;
+        default:
+        return null;
+      }
+    });
+    this.view = obj.view.map(lang => {
+      switch (lang) {
+        case MoviePlayViewEnum.THREE_D:
+          return MoviePlayViewEnum.THREE_D;
+        case MoviePlayViewEnum.TWO_D:
+          return MoviePlayViewEnum.TWO_D;
+        default:
+        return null;
+      }
+    });
     return this;
   }
 }
 
-export class RepertuarDTO
-  implements IDeserialize<RepertuarDTO, IRepertuarRest>, IRepertuarRest {
+export class RepertuarDTO implements IDeserialize<RepertuarDTO, IRepertuarRest>, IRepertuarRest {
   public movies_play: MoviePlayDTO[];
+  public locale_lang: string;
 
   public deserialize(obj: IRepertuarRest): RepertuarDTO {
+    this.locale_lang = obj.locale_lang;
     this.movies_play = [];
     obj.movies_play.forEach(el => {
       this.movies_play.push(new MoviePlayDTO().deserialize(el));

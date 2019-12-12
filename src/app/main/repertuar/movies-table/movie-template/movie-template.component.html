@@ -10,34 +10,34 @@
           <div class="title">{{ title }}</div>
 
           <div class="genres">
-            <span *ngFor="let genre of genres">
-              <span>{{ genre.name }}</span
-              ><span class="backslash"> / </span>
+            <span *ngFor="let genre of genres; let last = last">
+              <span>{{ genre.name }}</span>
+              <span *ngIf="!last" class="backslash"> / </span>
             </span>
+          </div>
 
             <div class="runtime">
               <span>Czas trwania: </span>
-              <span>{{ runtime }}</span
-              ><span> min.</span>
+              <span>{{ runtime }}</span>
+              <span> min.</span>
             </div>
 
             <div class="production">
               <span>Produkcja: </span>
-              <span *ngFor="let productionCountry of productionCountries">
-                <span>{{ productionCountry.name }}</span
-                ><span class="backslash">/</span>
+              <span *ngFor="let productionCountry of productionCountries; let last = last">
+                <span>{{ productionCountry.name }}</span>
+                <span *ngIf="!last" class="backslash">/</span>
               </span>
-              <span class="releaseDate">[{{ releaseDate | dateFormater: 'y' }}]</span>
+              <span class="releaseDate"> [{{ releaseDate | dateFormater: 'y' }}]</span>
             </div>
-          </div>
         </div>
 
         <div class="play-times">
           <div *ngFor="let time of playTimes">
-            <span class="time">
-              <span>{{ time | timeFormater: selectedDay:'HH:mm' }}</span>
-              <span></span>
-            </span>
+            <div class="time">
+              <div>{{ time | timeFormater:selectedDay:'HH:mm' }}</div>
+              <div class="view-and-language">{{ view[index] | setMoviePlayView }}, {{ lang[index] | setMoviePlayLang:originalLanguage | async }}</div>
+            </div>
           </div>
         </div>
       </div>

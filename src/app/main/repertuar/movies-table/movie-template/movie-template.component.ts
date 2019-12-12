@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
+import { MoviePlayLangEnum, MoviePlayViewEnum } from '@shared/models/repertuar/repertuarDTO';
 
 @Component({
   selector: 'app-movie-template',
@@ -16,8 +17,11 @@ export class MovieTemplateComponent implements OnInit {
   public productionCountries: ProductionCountryDTO[];
   public releaseDate: string;
   public title: string;
+  public originalLanguage: string;
 
   public playTimes: string[];
+  public lang: MoviePlayLangEnum[];
+  public view: MoviePlayViewEnum[];
   public selectedDay: string;
 
   @Input()
@@ -36,6 +40,8 @@ export class MovieTemplateComponent implements OnInit {
     this._id = value;
 
     this.setMoviePlayTimes(this.id);
+    this.setMovieLang(this.id);
+    this.setMovieView(this.id);
   }
   public get id(): number {
     return this._id;
@@ -58,12 +64,25 @@ export class MovieTemplateComponent implements OnInit {
       this.productionCountries = movieDetails.production_countries;
       this.releaseDate = movieDetails.release_date;
       this.title = movieDetails.title;
+      this.originalLanguage = movieDetails.original_language;
     });
   }
 
   private setMoviePlayTimes(id: number) {
     this.repertuarService.getMoviePlayTimes(id).subscribe(playTimes => {
       this.playTimes = playTimes;
+    });
+  }
+
+  private setMovieLang(id: number) {
+    this.repertuarService.getMovieLang(id).subscribe(lang => {
+      this.lang = lang;
+    });
+  }
+
+  private setMovieView(id: number) {
+    this.repertuarService.getMovieView(id).subscribe(view => {
+      this.view = view;
     });
   }
 

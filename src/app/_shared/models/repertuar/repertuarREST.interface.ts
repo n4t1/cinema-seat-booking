@@ -5,12 +5,11 @@ export interface IMoviePlayRest {
   room_id: number;
   tmdb_id: number;
   play_times: string[];
-  dubbing: boolean;
-  subtitles: boolean;
-  local_lang: boolean;
-  threeD: boolean;
+  lang: string[];
+  view: string[];
 }
 
 export interface IRepertuarRest {
+  locale_lang: string;
   movies_play: IMoviePlayRest[];
 }
