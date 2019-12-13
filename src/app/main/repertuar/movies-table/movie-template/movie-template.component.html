@@ -33,7 +33,7 @@
         </div>
 
         <div class="play-times">
-          <div *ngFor="let time of playTimes">
+          <div *ngFor="let time of playTimes; let index = index">
             <div class="time">
               <div>{{ time | timeFormater:selectedDay:'HH:mm' }}</div>
               <div class="view-and-language">{{ view[index] | setMoviePlayView }}, {{ lang[index] | setMoviePlayLang:originalLanguage | async }}</div>

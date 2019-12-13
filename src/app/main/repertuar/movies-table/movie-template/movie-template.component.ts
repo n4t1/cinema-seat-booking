@@ -88,6 +88,6 @@ export class MovieTemplateComponent implements OnInit {
 
   private getSelectedCalendarDay() {
     // TODO: change to date from calendar
-    this.selectedDay = new Date().toLocaleDateString();
+    this.selectedDay = new Date().toJSON().split('T')[0];
   }
 }
