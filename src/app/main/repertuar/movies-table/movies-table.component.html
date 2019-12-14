@@ -1,7 +1,8 @@
 <div class="container">
   <div class="content">
-    <div class="movies-template" *ngFor="let movie of movies; let i = index">
-      <app-movie-template [tmdbID]="movie.tmdb_id" [id]="i"></app-movie-template>
+    <div class="movies-template" *ngFor="let movie of movies; let index = index; let last = last">
+      <app-movie-template [tmdbID]="movie.tmdb_id" [id]="index"></app-movie-template>
+      <div *ngIf="!last" class="split-line"></div>
     </div>
   </div>
 </div>
