@@ -2,7 +2,7 @@
   <div class="content">
     <div class="movie">
       <div class="poster">
-        <img *ngIf="posterURL" [src]="posterURL" [alt]="posterAlt" />
+        <img *ngIf="posterURL" [src]="posterURL" [alt]="posterAlt"/>
       </div>
 
       <div class="information">
@@ -16,31 +16,39 @@
             </span>
           </div>
 
-            <div class="runtime">
-              <span>Czas trwania: </span>
-              <span>{{ runtime }}</span>
-              <span> min.</span>
-            </div>
+          <div class="runtime">
+            <span>Czas trwania: </span>
+            <span>{{ runtime }}</span>
+            <span> min.</span>
+          </div>
 
-            <div class="production">
-              <span>Produkcja: </span>
-              <span *ngFor="let productionCountry of productionCountries; let last = last">
-                <span>{{ productionCountry.name }}</span>
-                <span *ngIf="!last" class="backslash">/</span>
-              </span>
-              <span class="releaseDate"> [{{ releaseDate | dateFormater: 'y' }}]</span>
-            </div>
+          <div class="production">
+            <span>Produkcja: </span>
+            <span *ngFor="let productionCountry of productionCountries; let last = last">
+              <span>{{ productionCountry.name }}</span>
+              <span *ngIf="!last" class="backslash">/</span>
+            </span>
+            <span class="releaseDate"> [{{ releaseDate | dateFormater: 'y' }}]</span>
+          </div>
         </div>
 
         <div class="play-times">
           <div *ngFor="let time of playTimes; let index = index">
-            <div class="time">
-              <div>{{ time | timeFormater:selectedDay:'HH:mm' }}</div>
-              <div class="view-and-language">{{ view[index] | setMoviePlayView }}, {{ lang[index] | setMoviePlayLang:originalLanguage | async }}</div>
+            <div class="time-container">
+              <a routerLink="/book" class="router-link">
+                <div class="time">
+                  <div>{{ time | timeFormater: selectedDay:'HH:mm' }}</div>
+                  <div class="view-and-language">
+                    {{ view[index] | setMoviePlayView }},
+                    {{ lang[index] | setMoviePlayLang: originalLanguage | async }}
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="split-line"></div>
   </div>
 </div>

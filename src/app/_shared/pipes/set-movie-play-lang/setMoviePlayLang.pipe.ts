@@ -19,7 +19,7 @@ export class SetMoviePlayLangPipe implements PipeTransform {
     return this.repertuarService.localeLang.pipe(map(lang => {
       switch (value) {
         case MoviePlayLangEnum.LOCAL:
-          return lang;
+          return lang.toUpperCase();
         case MoviePlayLangEnum.DUBBING:
           return 'Dubbing';
         case MoviePlayLangEnum.SUBTITLES:

@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-template.component.scss']
 })
 export class LoginTemplateComponent implements OnInit {
-  
   public email = new FormControl('', [Validators.required, Validators.email]);
   public password = new FormControl('', [Validators.required]);
-  public show: boolean = true;
+  public show = true;
 
   constructor(
     private router: Router
