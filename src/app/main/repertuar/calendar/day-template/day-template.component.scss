@@ -1,0 +1,49 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .content {
+    position: relative;
+    width: 60px;
+    height: 90px;
+
+    .day {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: gainsboro;
+      border: solid 1px lawngreen;
+      box-shadow: 0 0 5px 0 lawngreen;
+      box-sizing: border-box;
+      cursor: pointer;
+      outline: none;
+
+      div {
+        padding-bottom: 5px;
+
+        &:last-child {
+          padding: 0;
+        }
+      }
+
+      &:hover {
+        border: solid 2px lawngreen;
+      }
+
+      &:focus {
+        border: solid 2px lawngreen;
+
+        .date {
+          color: lawngreen;
+          text-decoration: underline;
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

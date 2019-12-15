@@ -4,7 +4,7 @@ import {
   RepertuarDTO,
   MoviePlayDTO,
   MoviePlayViewEnum,
-  MoviePlayLangEnum
+  MoviePlayLangEnum, CalendarDTO
 } from '@shared/models/repertuar/repertuarDTO.js';
 import { IRepertuarRest } from '@shared/models/repertuar/repertuarREST.interface.js';
 import { HttpClient } from '@angular/common/http';
@@ -13,12 +13,12 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class RepertuarService {
-  private _repertuar$: BehaviorSubject<RepertuarDTO> = new BehaviorSubject<
-    RepertuarDTO
-  >(null);
+  private _repertuar$: BehaviorSubject<RepertuarDTO> = new BehaviorSubject<RepertuarDTO>(null);
+
   private get getRepertuar(): Observable<RepertuarDTO> {
     return this._repertuar$.asObservable().pipe(filter(obs => obs !== null));
   }
+
   private set setRepertuar(val: RepertuarDTO) {
     this._repertuar$.next(val);
   }
@@ -40,6 +40,15 @@ export class RepertuarService {
     return this.getRepertuar.pipe(
       map(repertuar => {
         return repertuar.locale_lang;
+      }),
+      first()
+    );
+  }
+
+  public get calendar(): Observable<CalendarDTO> {
+    return this.getRepertuar.pipe(
+      map(repertuar => {
+        return repertuar.calendar;
       }),
       first()
     );

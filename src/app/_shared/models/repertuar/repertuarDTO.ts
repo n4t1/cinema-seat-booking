@@ -1,4 +1,4 @@
-import { IMoviePlayRest, IRepertuarRest } from './repertuarREST.interface';
+import { ICalendar, IMoviePlayRest, IRepertuarRest } from './repertuarREST.interface';
 import { IDeserialize } from '@core/models/deserialize.interface';
 
 export enum MoviePlayLangEnum {
@@ -55,16 +55,29 @@ export class MoviePlayDTO implements IDeserialize<MoviePlayDTO, IMoviePlayRest>,
   }
 }
 
+export class CalendarDTO implements IDeserialize<CalendarDTO, ICalendar>, ICalendar {
+  public from: string;
+  public to: string;
+
+  public deserialize(obj: ICalendar): CalendarDTO {
+    this.from = obj.from;
+    this.to = obj.to;
+    return this;
+  }
+}
+
 export class RepertuarDTO implements IDeserialize<RepertuarDTO, IRepertuarRest>, IRepertuarRest {
   public movies_play: MoviePlayDTO[];
   public locale_lang: string;
+  public calendar: CalendarDTO;
 
   public deserialize(obj: IRepertuarRest): RepertuarDTO {
-    this.locale_lang = obj.locale_lang;
     this.movies_play = [];
     obj.movies_play.forEach(el => {
       this.movies_play.push(new MoviePlayDTO().deserialize(el));
     });
+    this.locale_lang = obj.locale_lang;
+    this.calendar = new CalendarDTO().deserialize(obj.calendar);
     return this;
   }
 }

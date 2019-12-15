@@ -1,1 +1,9 @@
-<p>calendar works!</p>
+<div class="container">
+  <div class="content">
+    <div class="calendar">
+      <div class="day-template" *ngFor="let date of calendar">
+        <app-day-template [date]="date"></app-day-template>
+      </div>
+    </div>
+  </div>
+</div>

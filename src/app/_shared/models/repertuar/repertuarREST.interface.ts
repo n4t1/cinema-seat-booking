@@ -9,7 +9,13 @@ export interface IMoviePlayRest {
   view: string[];
 }
 
+export interface ICalendar {
+  from: string;
+  to: string;
+}
+
 export interface IRepertuarRest {
   locale_lang: string;
+  calendar: ICalendar;
   movies_play: IMoviePlayRest[];
 }
