@@ -34,8 +34,10 @@
         border: solid 2px lawngreen;
       }
 
-      &:focus {
+      &:disabled {
         border: solid 2px lawngreen;
+        color: unset;
+        cursor: default;
 
         .date {
           color: lawngreen;

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="content">
 
-    <button class="day">
+    <button class="day" (click)="showRepertuar()" [disabled]="disabledSelectedDate">
       <div class="name-day">{{date | date:'EEE'}}</div>
       <div class="date">{{date | date:'d'}}</div>
       <div class="name-month">{{date | date:'MMM'}}</div>

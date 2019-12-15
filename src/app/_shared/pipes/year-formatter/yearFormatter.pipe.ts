@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 @Pipe({
-  name: 'dateFormater'
+  name: 'yearFormatter'
 })
-export class DateFormaterPipe implements PipeTransform {
+export class YearFormatterPipe implements PipeTransform {
   constructor(private datePipe: DatePipe) {}
 
   transform(value: string, transformPattern: string, args?: any): string {

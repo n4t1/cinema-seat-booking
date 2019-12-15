@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarDTO } from '@shared/models/repertuar/repertuarDTO';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
+import { CalendarService } from '../_shared/services/calendar/calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -11,8 +11,9 @@ export class CalendarComponent implements OnInit {
   public calendar: Date[];
 
   constructor(
-    private repertuarService: RepertuarService
-  ) {
+    private repertuarService: RepertuarService,
+    private calendarService: CalendarService
+) {
   }
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export class CalendarComponent implements OnInit {
       }
 
       this.calendar = newCalendar;
+      this.calendarService.setSelectedDate = this.calendar[0];
     });
   }
 }

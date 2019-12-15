@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { MoviePlayLangEnum } from '@shared/models/repertuar/repertuarDTO';
 
 @Pipe({
-  name: 'setMoviePlayLang',
-  pure: false
+  name: 'setMoviePlayLang'
 })
 export class SetMoviePlayLangPipe implements PipeTransform {
 
