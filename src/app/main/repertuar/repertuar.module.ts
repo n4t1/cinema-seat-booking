@@ -4,15 +4,13 @@ import { RepertuarComponent } from './repertuar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { MoviesTableModule } from './movies-table/movies-table.module';
 import { SharedModule } from '@shared/shared.module';
-import { CalendarService } from './_shared/services/calendar/calendar.service';
-import { FilterMoviesPlayByDatePipe } from './_shared/pipes/filter-movies-play-by-date/filter-movies-play-by-date.pipe';
+import { CalendarService } from '@main/shared/services/calendar/calendar.service';
 
 
 
 @NgModule({
   declarations: [
-    RepertuarComponent,
-    FilterMoviesPlayByDatePipe
+    RepertuarComponent
   ],
   imports: [
     CommonModule,
@@ -20,9 +18,7 @@ import { FilterMoviesPlayByDatePipe } from './_shared/pipes/filter-movies-play-b
     CalendarModule,
     MoviesTableModule
   ],
-  providers: [
-    CalendarService
-  ],
+  providers: [CalendarService],
   exports: [RepertuarComponent]
 })
 export class RepertuarModule { }

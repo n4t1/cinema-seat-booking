@@ -13,14 +13,14 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class RepertuarService {
-  private _repertuar$: BehaviorSubject<RepertuarDTO> = new BehaviorSubject<RepertuarDTO>(null);
+  private repertuar$: BehaviorSubject<RepertuarDTO> = new BehaviorSubject<RepertuarDTO>(null);
 
   private get getRepertuar(): Observable<RepertuarDTO> {
-    return this._repertuar$.asObservable().pipe(filter(obs => obs !== null));
+    return this.repertuar$.asObservable().pipe(filter(obs => obs !== null));
   }
 
   private set setRepertuar(val: RepertuarDTO) {
-    this._repertuar$.next(val);
+    this.repertuar$.next(val);
   }
 
   constructor(private httpClient: HttpClient) {

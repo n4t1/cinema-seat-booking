@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { MoviePlayDTO } from '@shared/models/repertuar/repertuarDTO';
-import { CalendarService } from '../_shared/services/calendar/calendar.service';
 
 @Component({
   selector: 'app-movies-table',
@@ -13,8 +12,7 @@ export class MoviesTableComponent implements OnInit {
   public movies: MoviePlayDTO[];
 
   constructor(
-    private repertuarService: RepertuarService,
-    private calendarService: CalendarService
+    private repertuarService: RepertuarService
   ) {
   }
 

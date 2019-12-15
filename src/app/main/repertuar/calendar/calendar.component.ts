@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
-import { CalendarService } from '../_shared/services/calendar/calendar.service';
+import { CalendarService } from '../../_shared/services/calendar/calendar.service';
 
 @Component({
   selector: 'app-calendar',
