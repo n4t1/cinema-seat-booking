@@ -10,6 +10,8 @@ import { MainModule } from './main/main.module';
 import { LoginModule } from './login/login.module';
 import { BookModule } from './book/book.module';
 import { SharedServicesModule } from '@shared/services/shared-services.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { SharedServicesModule } from '@shared/services/shared-services.module';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
     AppRoutingModule,
     BookModule,
