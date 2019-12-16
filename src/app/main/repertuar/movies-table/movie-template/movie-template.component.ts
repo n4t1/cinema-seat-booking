@@ -4,6 +4,8 @@ import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
 import { MoviePlayLangEnum, MoviePlayViewEnum } from '@shared/models/repertuar/repertuarDTO';
 import { ConvertAndFormatTimePipe } from '@shared/pipes/covert-and-format-time/convertAndFormatTime.pipe';
+import { Subscription } from 'rxjs';
+import { CalendarService } from '@main/shared/services/calendar/calendar.service';
 
 @Component({
   selector: 'app-movie-template',
@@ -29,7 +31,7 @@ export class MovieTemplateComponent implements OnInit {
   public set tmdbID(value: string) {
     this._tmdbID = value;
 
-    this.setMovieDetails(this.tmdbID);
+    this.setMovieDetails();
   }
 
   public get tmdbID(): string {
@@ -42,9 +44,9 @@ export class MovieTemplateComponent implements OnInit {
   public set id(value: number) {
     this._id = value;
 
-    this.setMoviePlayTimes(this.id);
-    this.setMovieLang(this.id);
-    this.setMovieView(this.id);
+    this.setMoviePlayTimes();
+    this.setMovieLang();
+    this.setMovieView();
   }
 
   public get id(): number {
@@ -53,24 +55,28 @@ export class MovieTemplateComponent implements OnInit {
 
   private _id: number;
 
+  private sub: Subscription = new Subscription();
+
   constructor(
     private movieTMDBService: MovieTMDBService,
     private repertuarService: RepertuarService,
-    private convertAndFormatTimePipe: ConvertAndFormatTimePipe
+    private convertAndFormatTimePipe: ConvertAndFormatTimePipe,
+    private calendarService: CalendarService
   ) {
   }
 
   ngOnInit() {
+    this.getSelectedCalendarDay();
   }
 
   public bookRouterLink(playTimeId: number, time: string): any[] {
     return ['/book', this.id, playTimeId, this.convertAndFormatTimePipe.transform(time, this.selectedDay).valueOf()];
   }
 
-  private setMovieDetails(tmdbID: string) {
-    this.movieTMDBService.getMovieDetails(tmdbID).subscribe(movieDetails => {
+  private setMovieDetails() {
+    this.movieTMDBService.getMovieDetails(this.tmdbID).subscribe(movieDetails => {
       this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.poster_path);
-      this.posterAlt = `Plakat ${movieDetails.title}`;
+      this.posterAlt = `Poster ${movieDetails.title}`;
       this.genres = movieDetails.genres;
       this.runtime = movieDetails.runtime;
       this.productionCountries = movieDetails.production_countries;
@@ -80,26 +86,27 @@ export class MovieTemplateComponent implements OnInit {
     });
   }
 
-  private setMoviePlayTimes(id: number) {
-    this.repertuarService.getMoviePlayTimes(id).subscribe(playTimes => {
+  private setMoviePlayTimes() {
+    this.repertuarService.getMoviePlayTimes(this.id).subscribe(playTimes => {
       this.playTimes = playTimes;
     });
   }
 
-  private setMovieLang(id: number) {
-    this.repertuarService.getMovieLang(id).subscribe(lang => {
+  private setMovieLang() {
+    this.repertuarService.getMovieLang(this.id).subscribe(lang => {
       this.lang = lang;
     });
   }
 
-  private setMovieView(id: number) {
-    this.repertuarService.getMovieView(id).subscribe(view => {
+  private setMovieView() {
+    this.repertuarService.getMovieView(this.id).subscribe(view => {
       this.view = view;
     });
   }
 
   private getSelectedCalendarDay() {
-    // TODO: change to date from calendar
-    this.selectedDay = new Date().toJSON().split('T')[0];
+    this.sub.add(this.calendarService.getSelectedDate.subscribe(date => {
+      this.selectedDay = date.toJSON().split('T')[0];
+    }));
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieInformationComponent } from './movie-information.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -10,7 +11,8 @@ import { MovieInformationComponent } from './movie-information.component';
     MovieInformationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
 
 })
