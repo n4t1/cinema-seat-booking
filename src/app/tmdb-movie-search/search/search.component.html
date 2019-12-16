@@ -1,1 +1,19 @@
-<p>search works!</p>
+<form class="example-form">
+  <mat-form-field class="form-field">
+    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options" [value]="option.title" (click)="click(option.id)">
+
+        <img [src]="option.poster" width="30">
+        <span>{{option.title}} [{{option.release | convertAndFormatDate: 'y'}}]</span>
+
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="form-field2">
+    <textarea matInput placeholder="Textarea" [formControl]="myControl2"></textarea>
+  </mat-form-field>
+</form>
+
+

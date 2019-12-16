@@ -13,7 +13,7 @@ export class MovieTMDBService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getMovieDetails(movieId: string): Observable<MovieDetailsDTO> {
+  public getMovieDetails(movieId: number): Observable<MovieDetailsDTO> {
     const url = `https://api.themoviedb.org/3/movie/${movieId}${this.API_KEY}`;
     const errorUrl = `https://api.themoviedb.org/3/movie/${movieId}`;
 

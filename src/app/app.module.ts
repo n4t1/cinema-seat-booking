@@ -12,7 +12,7 @@ import { BookModule } from './book/book.module';
 import { SharedServicesModule } from '@shared/services/shared-services.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { TmdbMovieSearchRoutingModule } from './tmdb-movie-search/tmdb-movie-search-routing.module';
+import { TmdbMovieSearchModule } from './tmdb-movie-search/tmdb-movie-search.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { TmdbMovieSearchRoutingModule } from './tmdb-movie-search/tmdb-movie-sea
     BookModule,
     LoginModule,
     MainModule,
-    TmdbMovieSearchRoutingModule,
+    TmdbMovieSearchModule,
     SharedServicesModule,
   ],
   providers: [],

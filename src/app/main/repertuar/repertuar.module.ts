@@ -10,14 +10,14 @@ import { CalendarService } from '@main/shared/services/calendar/calendar.service
 
 @NgModule({
   declarations: [
-    RepertuarComponent
-  ],
+  RepertuarComponent
+],
   imports: [
-    CommonModule,
-    SharedModule,
-    CalendarModule,
-    MoviesTableModule
-  ],
+  CommonModule,
+  SharedModule,
+  CalendarModule,
+  MoviesTableModule
+],
   providers: [CalendarService],
   exports: [RepertuarComponent]
 })

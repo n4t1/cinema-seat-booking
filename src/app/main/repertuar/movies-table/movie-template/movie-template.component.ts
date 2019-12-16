@@ -3,7 +3,7 @@ import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
 import { MoviePlayLangEnum, MoviePlayViewEnum } from '@shared/models/repertuar/repertuarDTO';
-import { ConvertAndFormatTimePipe } from '@shared/pipes/covert-and-format-time/convertAndFormatTime.pipe';
+import { ConvertAndFormatTimePipe } from '@shared/pipes/convert-and-format-time/convertAndFormatTime.pipe';
 import { Subscription } from 'rxjs';
 import { CalendarService } from '@main/shared/services/calendar/calendar.service';
 
@@ -28,17 +28,17 @@ export class MovieTemplateComponent implements OnInit {
   public selectedDay: string;
 
   @Input()
-  public set tmdbID(value: string) {
+  public set tmdbID(value: number) {
     this._tmdbID = value;
 
     this.setMovieDetails();
   }
 
-  public get tmdbID(): string {
+  public get tmdbID(): number {
     return this._tmdbID;
   }
 
-  private _tmdbID: string;
+  private _tmdbID: number;
 
   @Input()
   public set id(value: number) {

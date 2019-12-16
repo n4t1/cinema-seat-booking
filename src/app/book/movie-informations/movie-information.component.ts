@@ -29,7 +29,7 @@ export class MovieInformationComponent implements OnInit {
   }
 
   private getMovieDetails(tmdbID: number) {
-    this.movieTMDBService.getMovieDetails(tmdbID + '').subscribe(movieDetails => {
+    this.movieTMDBService.getMovieDetails(tmdbID).subscribe(movieDetails => {
       this.title = movieDetails.title;
     });
   }
