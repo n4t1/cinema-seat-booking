@@ -6,6 +6,9 @@ import { HallsComponent } from './halls.component';
 
 @NgModule({
   declarations: [HallsComponent],
+  exports: [
+    HallsComponent
+  ],
   imports: [
     CommonModule
   ]

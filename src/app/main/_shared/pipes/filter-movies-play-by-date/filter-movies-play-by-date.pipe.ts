@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { MoviePlayDTO } from '@shared/models/repertuar/repertuarDTO';
 import { CalendarService } from '@main/shared/services/calendar/calendar.service';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 @Pipe({
   name: 'filterMoviesPlayByDate',
@@ -16,6 +16,7 @@ export class FilterMoviesPlayByDatePipe implements PipeTransform {
 
 
   transform(value: MoviePlayDTO[], ...args: any[]): Observable<MoviePlayDTO[]> {
+    if (!value || value.length === 0) { return EMPTY; }
     return new Observable<MoviePlayDTO[]>((obs) => {
       this.calendarService.getSelectedDate.subscribe(selectedDate => {
         const filteredValue: MoviePlayDTO[] = value.filter(movie =>

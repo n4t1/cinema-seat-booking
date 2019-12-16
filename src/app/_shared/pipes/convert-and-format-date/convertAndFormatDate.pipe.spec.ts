@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { YearFormatterPipe } from './yearFormatter.pipe';
+import { ConvertAndFormatDatePipe } from './convertAndFormatDate.pipe';
 
 describe('Pipe: DateFormatere', () => {
   it('create an instance', () => {
-    let pipe = new YearFormatterPipe();
+    let pipe = new ConvertAndFormatDatePipe(null);
     expect(pipe).toBeTruthy();
   });
 });

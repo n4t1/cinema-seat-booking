@@ -28,16 +28,16 @@
               <span>{{ productionCountry.name }}</span>
               <span *ngIf="!last" class="backslash">/</span>
             </span>
-            <span class="releaseDate"> [{{ releaseDate | yearFormatter: 'y' }}]</span>
+            <span class="releaseDate"> [{{ releaseDate | convertAndFormatDate: 'y' }}]</span>
           </div>
         </div>
 
         <div class="play-times">
           <div *ngFor="let time of playTimes; let index = index">
             <div class="time-container">
-              <a routerLink="/book" class="router-link">
+              <a [routerLink]="bookRouterLink(index, time)" class="router-link">
                 <div class="time">
-                  <div>{{ time | timeFormatter: selectedDay:'HH:mm' }}</div>
+                  <div>{{ time | convertAndFormatTime: selectedDay:'HH:mm' }}</div>
                   <div class="view-and-language">
                     {{ view[index] | setMoviePlayView }},
                     {{ lang[index] | setMoviePlayLang: originalLanguage | async }}

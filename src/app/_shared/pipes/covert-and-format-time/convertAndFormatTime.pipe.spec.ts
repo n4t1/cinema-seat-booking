@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { TimeFormatterPipe } from './timeFormatter.pipe';
+import { ConvertAndFormatTimePipe } from './convertAndFormatTime.pipe';
 
 describe('Pipe: TimeFormatere', () => {
   it('create an instance', () => {
-    let pipe = new TimeFormatterPipe();
+    let pipe = new ConvertAndFormatTimePipe(null);
     expect(pipe).toBeTruthy();
   });
 });

@@ -3,6 +3,7 @@ import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
 import { MoviePlayLangEnum, MoviePlayViewEnum } from '@shared/models/repertuar/repertuarDTO';
+import { ConvertAndFormatTimePipe } from '@shared/pipes/covert-and-format-time/convertAndFormatTime.pipe';
 
 @Component({
   selector: 'app-movie-template',
@@ -30,9 +31,11 @@ export class MovieTemplateComponent implements OnInit {
 
     this.setMovieDetails(this.tmdbID);
   }
+
   public get tmdbID(): string {
     return this._tmdbID;
   }
+
   private _tmdbID: string;
 
   @Input()
@@ -43,17 +46,26 @@ export class MovieTemplateComponent implements OnInit {
     this.setMovieLang(this.id);
     this.setMovieView(this.id);
   }
+
   public get id(): number {
     return this._id;
   }
+
   private _id: number;
 
   constructor(
     private movieTMDBService: MovieTMDBService,
-    private repertuarService: RepertuarService
-  ) {}
+    private repertuarService: RepertuarService,
+    private convertAndFormatTimePipe: ConvertAndFormatTimePipe
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  public bookRouterLink(playTimeId: number, time: string): any[] {
+    return ['/book', this.id, playTimeId, this.convertAndFormatTimePipe.transform(time, this.selectedDay).valueOf()];
+  }
 
   private setMovieDetails(tmdbID: string) {
     this.movieTMDBService.getMovieDetails(tmdbID).subscribe(movieDetails => {

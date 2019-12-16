@@ -10,12 +10,15 @@ const routes: Routes = [
   },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'main', loadChildren: () => import('./main/main.module').then(m => m.MainModule) },
-  { path: 'book', loadChildren: () => import('./book/book.module').then(m => m.BookModule) },
+  {
+    path: 'book/:moviePlayId/:selectedTimeId/:selectedTimeNumber',
+    loadChildren: () => import('./book/book.module').then(m => m.BookModule)
+  },
   {
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({
@@ -23,8 +26,9 @@ const routes: Routes = [
     RouterModule.forRoot(
       routes,
       { enableTracing: false } // <-- debugging purposes only
-    ),
+    )
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
