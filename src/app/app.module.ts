@@ -12,6 +12,7 @@ import { BookModule } from './book/book.module';
 import { SharedServicesModule } from '@shared/services/shared-services.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import { TmdbMovieSearchRoutingModule } from './tmdb-movie-search/tmdb-movie-search-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { environment } from '../environments/environment';
     BookModule,
     LoginModule,
     MainModule,
+    TmdbMovieSearchRoutingModule,
     SharedServicesModule,
   ],
   providers: [],

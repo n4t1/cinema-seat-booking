@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./book/book.module').then(m => m.BookModule)
   },
   {
+    path: 'tmdbMovieSearch',
+    loadChildren: () => import('./tmdb-movie-search/tmdb-movie-search.module').then(m => m.TmdbMovieSearchModule)
+  },
+  {
     path: '**',
     redirectTo: 'main',
     pathMatch: 'full'
