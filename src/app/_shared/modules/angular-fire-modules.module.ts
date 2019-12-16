@@ -8,10 +8,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 const modules = [
-  // AngularFireAuthModule,
+  AngularFireAuthModule,
   // AngularFireDatabaseModule,
   // AngularFireFunctionsModule,
-  // AngularFirestoreModule,
+  AngularFirestoreModule,
   // AngularFireStorageModule,
   // AngularFireMessagingModule
 ];
