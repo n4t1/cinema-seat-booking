@@ -16,8 +16,8 @@ export class MoviePlayDTO implements IDeserialize<MoviePlayDTO, IMoviePlayRest>,
   public id: string;
   public start_date: string;
   public end_data: string;
-  public room_id: number;
   public tmdb_id: number;
+  public rooms: number[];
   public play_times: string[];
   public lang: MoviePlayLangEnum[];
   public view: MoviePlayViewEnum[];
@@ -26,8 +26,8 @@ export class MoviePlayDTO implements IDeserialize<MoviePlayDTO, IMoviePlayRest>,
     this.id = obj.id;
     this.start_date = obj.start_date;
     this.end_data = obj.end_data;
-    this.room_id = obj.room_id;
     this.tmdb_id = obj.tmdb_id;
+    this.rooms = obj.rooms;
     this.play_times = obj.play_times;
     this.lang = obj.lang.map(lang => {
       switch (lang) {

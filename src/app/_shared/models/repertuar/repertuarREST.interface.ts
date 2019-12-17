@@ -2,8 +2,8 @@ export interface IMoviePlayRest {
   id: string;
   start_date: string;
   end_data: string;
-  room_id: number;
   tmdb_id: number;
+  rooms: number[];
   play_times: string[];
   lang: string[];
   view: string[];

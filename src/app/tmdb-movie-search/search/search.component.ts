@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
 
   public click(id: number) {
     this.movieTMDBService.getMovieDetails(id).subscribe(value => {
-      this.myControl2.setValue(JSON.stringify(value));
+      this.myControl2.setValue(JSON.stringify(value, undefined, 2));
     });
   }
 

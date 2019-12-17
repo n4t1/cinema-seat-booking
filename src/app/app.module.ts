@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,10 +14,16 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { TmdbMovieSearchModule } from './tmdb-movie-search/tmdb-movie-search.module';
 
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl, 'pl');
+
 @NgModule({
   declarations: [
     AppComponent
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -27,9 +33,11 @@ import { TmdbMovieSearchModule } from './tmdb-movie-search/tmdb-movie-search.mod
     LoginModule,
     MainModule,
     TmdbMovieSearchModule,
-    SharedServicesModule,
+    SharedServicesModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pl' }
+  ]
 })
-export class AppModule { }
+export class AppModule {
+}

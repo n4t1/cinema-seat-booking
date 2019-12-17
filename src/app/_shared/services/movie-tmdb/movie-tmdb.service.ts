@@ -10,11 +10,12 @@ import { IMovieDetailsRest } from '../../models/movie-details/movieDetailsREST.i
 @Injectable()
 export class MovieTMDBService {
   private readonly API_KEY = '?api_key=fe1a1a777485b3e314f16af8e051dfb4';
+  private readonly PL_LANG = '&language=pl';
 
   constructor(private httpClient: HttpClient) {}
 
   public getMovieDetails(movieId: number): Observable<MovieDetailsDTO> {
-    const url = `https://api.themoviedb.org/3/movie/${movieId}${this.API_KEY}`;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}${this.API_KEY}${this.PL_LANG}`;
     const errorUrl = `https://api.themoviedb.org/3/movie/${movieId}`;
 
     return this.httpClient.get<IMovieDetailsRest>(url).pipe(

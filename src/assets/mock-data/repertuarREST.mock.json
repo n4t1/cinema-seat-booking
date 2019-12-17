@@ -1,96 +1,84 @@
 {
   "locale_lang": "pl",
   "calendar": {
-    "from": "2019-12-16",
-    "to": "2019-12-28"
+    "from": "2019-12-18",
+    "to": "2019-12-22"
   },
   "movies_play": [
     {
       "id": "0",
-      "start_date": "2019-12-14",
-      "end_data": "2019-12-28",
-      "room_id": 1,
-      "tmdb_id": 12653,
+      "start_date": "2019-12-18",
+      "end_data": "2019-12-22",
+      "tmdb_id": 181812,
+      "rooms": [
+        0,
+        0
+      ],
       "play_times": [
-        "09:20:00",
-        "13:00:00",
-        "21:00:00"
+        "17:00:00",
+        "20:30:00"
       ],
       "lang": [
-        "SUBTITLES",
         "SUBTITLES",
         "DUBBING"
       ],
       "view": [
-        "TWO_D",
-        "TWO_D",
-        "THREE_D"
+        "THREE_D",
+        "TWO_D"
       ]
     },
     {
       "id": "1",
-      "start_date": "2019-12-14",
-      "end_data": "2019-12-20",
-      "room_id": 2,
-      "tmdb_id": 550,
+      "start_date": "2019-12-18",
+      "end_data": "2019-12-19",
+      "tmdb_id": 546554,
+      "rooms": [
+        0
+      ],
       "play_times": [
-        "11:00:00",
-        "16:00:00",
-        "23:00:00"
+        "13:00:00"
       ],
       "lang": [
-        "LOCAL",
-        "LOCAL",
-        "LOCAL"
+        "SUBTITLES"
       ],
       "view": [
-        "TWO_D",
-        "TWO_D",
         "TWO_D"
       ]
     },
     {
       "id": "2",
-      "start_date": "2019-12-14",
-      "end_data": "2019-12-25",
-      "room_id": 1,
-      "tmdb_id": 12653,
+      "start_date": "2019-12-18",
+      "end_data": "2019-12-18",
+      "tmdb_id": 636560,
+      "rooms": [
+        0
+      ],
       "play_times": [
-        "09:00:00",
-        "13:00:00",
-        "21:00:00"
+        "10:00:00"
       ],
       "lang": [
-        "SUBTITLES",
-        "SUBTITLES",
-        "DUBBING"
+        "LOCAL"
       ],
       "view": [
-        "TWO_D",
-        "TWO_D",
-        "THREE_D"
+        "TWO_D"
       ]
     },
     {
       "id": "3",
-      "start_date": "2019-12-20",
-      "end_data": "2019-12-28",
-      "room_id": 2,
-      "tmdb_id": 550,
+      "start_date": "2019-12-19",
+      "end_data": "2019-12-21",
+      "tmdb_id": 330457,
+      "rooms": [
+        0
+      ],
       "play_times": [
-        "09:00:00",
-        "13:00:00",
-        "21:00:00"
+        "10:00:00"
       ],
       "lang": [
-        "DUBBING",
-        "DUBBING",
         "DUBBING"
       ],
       "view": [
-        "THREE_D",
-        "THREE_D",
-        "THREE_D"
+        "TWO_D"
       ]
     }
   ]
