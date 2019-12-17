@@ -7,28 +7,28 @@
 
       <div class="information">
         <div class="movie-details">
-          <div class="title">{{ title }}</div>
+          <div class="title">{{ title | noData }}</div>
 
           <div class="genres">
             <span *ngFor="let genre of genres; let last = last">
-              <span>{{ genre.name }}</span>
+              <span>{{ genre?.name | noData }}</span>
               <span *ngIf="!last" class="backslash"> / </span>
             </span>
           </div>
 
           <div class="runtime">
             <span>Czas trwania: </span>
-            <span>{{ runtime }}</span>
+            <span>{{ runtime | noData }}</span>
             <span> min.</span>
           </div>
 
           <div class="production">
             <span>Produkcja: </span>
             <span *ngFor="let productionCountry of productionCountries; let last = last">
-              <span>{{ productionCountry.name }}</span>
+              <span>{{ productionCountry?.name | noData }}</span>
               <span *ngIf="!last" class="backslash">/</span>
             </span>
-            <span class="releaseDate"> [{{ releaseDate | convertAndFormatDate: 'y' }}]</span>
+            <span class="releaseDate"> [{{ releaseDate | convertAndFormatDate: 'y' | noData }}]</span>
           </div>
         </div>
 
@@ -37,10 +37,10 @@
             <div class="time-container">
               <a [routerLink]="bookRouterLink(index, time)" class="router-link">
                 <div class="time">
-                  <div>{{ time | convertAndFormatTime: selectedDay:'HH:mm' }}</div>
+                  <div>{{ time | convertAndFormatTime: selectedDay:'HH:mm' | noData }}</div>
                   <div class="view-and-language">
-                    {{ view[index] | setMoviePlayView }},
-                    {{ lang[index] | setMoviePlayLang: originalLanguage | async }}
+                    {{ view[index] | setMoviePlayView | noData }},
+                    {{ lang[index] | setMoviePlayLang: originalLanguage | async | noData }}
                   </div>
                 </div>
               </a>
