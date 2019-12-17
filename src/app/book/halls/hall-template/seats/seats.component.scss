@@ -1,0 +1,55 @@
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .row {
+      display: flex;
+      align-items: center;
+
+      .row-number {
+        &:first-child {
+          margin-right: 5px;
+        }
+
+        &:last-child {
+          margin-left: 5px;
+        }
+      }
+
+      .row-form {
+        display: flex;
+        justify-content: center;
+
+        .button {
+          background: unset;
+          border: solid 1px;
+          box-sizing: border-box;
+          cursor: pointer;
+          outline: none;
+          text-transform: uppercase;
+
+          &:active {
+            border-width: 2px;
+          }
+
+          &:disabled {
+            cursor: default;
+          }
+        }
+
+        .empty-space, .button {
+          width: 30px;
+          height: 35px;
+          margin: 2px;
+        }
+      }
+    }
+  }
+}

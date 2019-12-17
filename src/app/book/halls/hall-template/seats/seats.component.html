@@ -1,1 +1,19 @@
-<p>seats works!</p>
+<div class="container">
+  <div class="content">
+    <div class="row">
+      <span class="row-number">{{row}}</span>
+
+      <form class="row-form" [formGroup]="rowForm">
+        <div *ngFor="let seat of seatsPerRow">
+          <input *ngIf="!seat?.isEmptySpace; else emptySpace" class="button" type="button" [value]="seat?.seatNumber" [formControlName]="seat?.formControl">
+          <ng-template #emptySpace>
+            <div class="empty-space"></div>
+          </ng-template>
+        </div>
+      </form>
+
+      <span class="row-number">{{row}}</span>
+    </div>
+  </div>
+</div>
+

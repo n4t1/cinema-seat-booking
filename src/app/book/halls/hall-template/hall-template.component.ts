@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IEmptySpace } from './seats/seats.component';
 
 @Component({
   selector: 'app-hall-template',
@@ -7,9 +8,84 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HallTemplateComponent implements OnInit {
 
+  public rows: ISeatsRows[] = [
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 14,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 20,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 20,
+      emptySpacePerRowNumber: {
+        fromSeat: 11,
+        emptySpaceNumber: 3
+      }
+    },
+    {
+      seatsPerRowNumber: 20,
+      emptySpacePerRowNumber: null
+    },
+  ];
+
   constructor() { }
 
   ngOnInit() {
   }
 
+}
+
+interface ISeatsRows {
+  seatsPerRowNumber: number;
+  emptySpacePerRowNumber: IEmptySpace;
 }
