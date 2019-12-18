@@ -78,6 +78,8 @@ export class HallTemplateComponent implements OnInit {
     },
   ];
 
+  public hallName = 'Sala 3';
+
   constructor() { }
 
   ngOnInit() {
