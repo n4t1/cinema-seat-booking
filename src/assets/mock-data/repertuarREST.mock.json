@@ -10,21 +10,19 @@
       "start_date": "2019-12-18",
       "end_data": "2019-12-22",
       "tmdb_id": 181812,
-      "rooms": [
-        0,
-        0
-      ],
-      "play_times": [
-        "17:00:00",
-        "20:30:00"
-      ],
-      "lang": [
-        "SUBTITLES",
-        "DUBBING"
-      ],
-      "view": [
-        "THREE_D",
-        "TWO_D"
+      "played": [
+        {
+          "room": 0,
+          "time": "17:00:00",
+          "lang": "SUBTITLES",
+          "view": "THREE_D"
+        },
+        {
+          "room": 0,
+          "time": "20:30:00",
+          "lang": "DUBBING",
+          "view": "TWO_D"
+        }
       ]
     },
     {
@@ -32,17 +30,13 @@
       "start_date": "2019-12-18",
       "end_data": "2019-12-19",
       "tmdb_id": 546554,
-      "rooms": [
-        0
-      ],
-      "play_times": [
-        "13:00:00"
-      ],
-      "lang": [
-        "SUBTITLES"
-      ],
-      "view": [
-        "TWO_D"
+      "played": [
+        {
+          "room": 0,
+          "time": "13:00:00",
+          "lang": "SUBTITLES",
+          "view": "TWO_D"
+        }
       ]
     },
     {
@@ -50,17 +44,13 @@
       "start_date": "2019-12-18",
       "end_data": "2019-12-18",
       "tmdb_id": 636560,
-      "rooms": [
-        0
-      ],
-      "play_times": [
-        "10:00:00"
-      ],
-      "lang": [
-        "LOCAL"
-      ],
-      "view": [
-        "TWO_D"
+      "played": [
+          {
+            "room": 0,
+            "time": "10:00:00",
+            "lang": "LOCAL",
+            "view": "TWO_D"
+          }
       ]
     },
     {
@@ -68,17 +58,13 @@
       "start_date": "2019-12-19",
       "end_data": "2019-12-21",
       "tmdb_id": 330457,
-      "rooms": [
-        0
-      ],
-      "play_times": [
-        "10:00:00"
-      ],
-      "lang": [
-        "DUBBING"
-      ],
-      "view": [
-        "TWO_D"
+      "played": [
+        {
+          "room": 0,
+          "time": "10:00:00",
+          "lang": "DUBBING",
+          "view": "TWO_D"
+        }
       ]
     }
   ]

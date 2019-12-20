@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
 import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
 import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
-import { MoviePlayLangEnum, MoviePlayViewEnum } from '@shared/models/repertuar/repertuarDTO';
+import { MoviePlayLangEnum, MoviePlayViewEnum, PlayedDTO } from '@shared/models/repertuar/repertuarDTO';
 import { ConvertAndFormatTimePipe } from '@shared/pipes/convert-and-format-time/convertAndFormatTime.pipe';
 import { Subscription } from 'rxjs';
 import { CalendarService } from '@main/shared/services/calendar/calendar.service';
@@ -22,9 +22,7 @@ export class MovieTemplateComponent implements OnInit {
   public title: string;
   public originalLanguage: string;
 
-  public playTimes: string[];
-  public lang: MoviePlayLangEnum[];
-  public view: MoviePlayViewEnum[];
+  public played: PlayedDTO[];
   public selectedDay: string;
 
   @Input()
@@ -44,9 +42,7 @@ export class MovieTemplateComponent implements OnInit {
   public set id(value: number) {
     this._id = value;
 
-    this.setMoviePlayTimes();
-    this.setMovieLang();
-    this.setMovieView();
+    this.setMoviePlayed();
   }
 
   public get id(): number {
@@ -86,21 +82,9 @@ export class MovieTemplateComponent implements OnInit {
     });
   }
 
-  private setMoviePlayTimes() {
-    this.repertuarService.getMoviePlayTimes(this.id).subscribe(playTimes => {
-      this.playTimes = playTimes;
-    });
-  }
-
-  private setMovieLang() {
-    this.repertuarService.getMovieLang(this.id).subscribe(lang => {
-      this.lang = lang;
-    });
-  }
-
-  private setMovieView() {
-    this.repertuarService.getMovieView(this.id).subscribe(view => {
-      this.view = view;
+  private setMoviePlayed() {
+    this.repertuarService.getMoviePlayed(this.id).subscribe(played => {
+      this.played = played;
     });
   }
 

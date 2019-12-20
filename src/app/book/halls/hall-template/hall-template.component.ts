@@ -8,76 +8,7 @@ import { IEmptySpace } from './seats/seats.component';
 })
 export class HallTemplateComponent implements OnInit {
 
-  public rows: ISeatsRows[] = [
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 14,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 20,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 20,
-      emptySpacePerRowNumber: {
-        fromSeat: 11,
-        emptySpaceNumber: 3
-      }
-    },
-    {
-      seatsPerRowNumber: 20,
-      emptySpacePerRowNumber: null
-    },
-  ];
-
+  public rows: ISeatsRows[];
   public hallName = 'Sala 3';
 
   constructor() { }

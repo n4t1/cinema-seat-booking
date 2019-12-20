@@ -3,8 +3,8 @@ import mockRepertuarREST from '../../../../assets/mock-data/repertuarREST.mock.j
 import {
   RepertuarDTO,
   MoviePlayDTO,
-  MoviePlayViewEnum,
-  MoviePlayLangEnum, CalendarDTO
+  CalendarDTO,
+  PlayedDTO
 } from '@shared/models/repertuar/repertuarDTO.js';
 import { IRepertuarRest } from '@shared/models/repertuar/repertuarREST.interface.js';
 import { HttpClient } from '@angular/common/http';
@@ -63,28 +63,10 @@ export class RepertuarService {
     );
   }
 
-  public getMoviePlayTimes(id: number): Observable<string[]> {
+  public getMoviePlayed(id: number): Observable<PlayedDTO[]> {
     return this.getMovie(id).pipe(
       map(moviePlay => {
-        return moviePlay.play_times;
-      }),
-      first()
-    );
-  }
-
-  public getMovieLang(id: number): Observable<MoviePlayLangEnum[]> {
-    return this.getMovie(id).pipe(
-      map(moviePlay => {
-        return moviePlay.lang;
-      }),
-      first()
-    );
-  }
-
-  public getMovieView(id: number): Observable<MoviePlayViewEnum[]> {
-    return this.getMovie(id).pipe(
-      map(moviePlay => {
-        return moviePlay.view;
+        return moviePlay.played;
       }),
       first()
     );

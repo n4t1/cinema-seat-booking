@@ -1,12 +1,16 @@
+export interface IPlayed {
+  room: number;
+  time: string;
+  lang: string;
+  view: string;
+}
+
 export interface IMoviePlayRest {
   id: string;
   start_date: string;
   end_data: string;
   tmdb_id: number;
-  rooms: number[];
-  play_times: string[];
-  lang: string[];
-  view: string[];
+  played: IPlayed[];
 }
 
 export interface ICalendar {
