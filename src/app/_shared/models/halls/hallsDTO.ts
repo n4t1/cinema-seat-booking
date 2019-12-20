@@ -1,5 +1,5 @@
 import { IDeserialize } from '@core/models/deserialize.interface';
-import { IEmptySpace, IHall, IHalls, ISeats } from './hallsREST.interface';
+import { IEmptySpace, IHall, IHalls, ISeatsRows } from './hallsREST.interface';
 
 export class EmptySpaceDTO implements IDeserialize<EmptySpaceDTO, IEmptySpace>, IEmptySpace {
   fromSeat: number;
@@ -12,26 +12,27 @@ export class EmptySpaceDTO implements IDeserialize<EmptySpaceDTO, IEmptySpace>, 
   }
 }
 
-export class SeatsDTO implements IDeserialize<SeatsDTO, ISeats>, ISeats {
+export class SeatsRowsDTO implements IDeserialize<SeatsRowsDTO, ISeatsRows>, ISeatsRows {
   seatsPerRowNumber: number;
-  emptySpacePerRowNumber: EmptySpaceDTO;
+  emptySpacePerRowNumber?: EmptySpaceDTO;
 
-  public deserialize(obj: ISeats): SeatsDTO {
+  public deserialize(obj: ISeatsRows): SeatsRowsDTO {
     this.seatsPerRowNumber = obj.seatsPerRowNumber;
-    this.emptySpacePerRowNumber = new EmptySpaceDTO().deserialize(obj.emptySpacePerRowNumber);
+    this.emptySpacePerRowNumber = (obj.emptySpacePerRowNumber != undefined) ?
+      new EmptySpaceDTO().deserialize(obj.emptySpacePerRowNumber) : null;
     return this;
   }
 }
 
 export class HallDTO implements IDeserialize<HallDTO, IHall>, IHall {
   id: number;
-  layout: ISeats[];
+  rows: SeatsRowsDTO[];
 
   public deserialize(obj: IHall): HallDTO {
     this.id = obj.id;
-    this.layout = [];
-    obj.layout.forEach(el => {
-      this.layout.push(new SeatsDTO().deserialize(el));
+    this.rows = [];
+    obj.rows.forEach(el => {
+      this.rows.push(new SeatsRowsDTO().deserialize(el));
     });
     return this;
   }

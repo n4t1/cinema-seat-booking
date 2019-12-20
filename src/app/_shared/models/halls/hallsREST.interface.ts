@@ -3,14 +3,14 @@ export interface IEmptySpace {
   emptySpaceNumber: number;
 }
 
-export interface ISeats {
+export interface ISeatsRows {
   seatsPerRowNumber: number;
-  emptySpacePerRowNumber: IEmptySpace;
+  emptySpacePerRowNumber?: IEmptySpace;
 }
 
 export interface IHall {
   id: number;
-  layout: ISeats[];
+  rows: ISeatsRows[];
 }
 
 export interface IHalls {

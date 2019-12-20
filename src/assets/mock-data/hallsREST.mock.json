@@ -2,51 +2,51 @@
   "halls": [
     {
       "id": 0,
-      "layout": [
+      "rows": [
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 14,
+          "seatsPerRowNumber": 11,
           "emptySpacePerRowNumber": null
         },
         {
-          "seatsPerRowNumber": 20,
+          "seatsPerRowNumber": 18,
           "emptySpacePerRowNumber": {
             "fromSeat": 11,
             "emptySpaceNumber": 3
           }
         },
         {
-          "seatsPerRowNumber": 20,
+          "seatsPerRowNumber": 18,
           "emptySpacePerRowNumber": {
             "fromSeat": 11,
             "emptySpaceNumber": 3
           }
         },
         {
-          "seatsPerRowNumber": 20,
+          "seatsPerRowNumber": 18,
           "emptySpacePerRowNumber": null
         }
       ]

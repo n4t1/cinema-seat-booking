@@ -1,11 +1,13 @@
 <div class="container">
   <div class="content">
     <div class="hall-name">{{hallName}}</div>
-    <div class="screen">EKRAN</div>
-    <div class="seats">
-      <div *ngFor="let row of rows; let index = index">
-        <app-seats [row]="index" [seatsPerRowNumber]="row?.seatsPerRowNumber"
-                   [emptySpacePerRowNumber]="row.emptySpacePerRowNumber"></app-seats>
+    <div class="hall-content">
+      <div class="screen">EKRAN</div>
+      <div class="seats">
+        <div *ngFor="let row of rows; let index = index">
+          <app-seats [row]="index" [seatsPerRowNumber]="row?.seatsPerRowNumber"
+                     [emptySpacePerRowNumber]="row.emptySpacePerRowNumber"></app-seats>
+        </div>
       </div>
     </div>
   </div>

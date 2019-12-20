@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IEmptySpace } from '@shared/models/halls/hallsREST.interface';
 
 @Component({
   selector: 'app-seats',
@@ -7,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./seats.component.scss']
 })
 export class SeatsComponent implements OnInit {
-  @Input() public row;
+  @Input() public row: number;
   @Input() public emptySpacePerRowNumber: IEmptySpace;
   @Input() public seatsPerRowNumber: number;
 
@@ -56,9 +57,4 @@ interface ISeat {
   seatNumber: number;
   formControl: string;
   isEmptySpace: boolean;
-}
-
-export interface IEmptySpace {
-  emptySpaceNumber: number;
-  fromSeat: number;
 }

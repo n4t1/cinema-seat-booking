@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IEmptySpace } from './seats/seats.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { ISeatsRows } from '@shared/models/halls/hallsREST.interface';
 
 @Component({
   selector: 'app-hall-template',
@@ -7,18 +7,21 @@ import { IEmptySpace } from './seats/seats.component';
   styleUrls: ['./hall-template.component.scss']
 })
 export class HallTemplateComponent implements OnInit {
+  @Input() public rows: ISeatsRows[] = [];
 
-  public rows: ISeatsRows[];
-  public hallName = 'Sala 3';
+  @Input() private set hallId(value: number) {
+    this._hallId = value;
+    this.hallName = `Sala ${this.hallId}`;
+  }
+  private get hallId(): number {
+    return this._hallId;
+  }
+  private _hallId: number;
+  public hallName: string;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-}
-
-interface ISeatsRows {
-  seatsPerRowNumber: number;
-  emptySpacePerRowNumber: IEmptySpace;
 }
