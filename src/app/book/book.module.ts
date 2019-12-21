@@ -7,6 +7,7 @@ import { SharedModule } from '@shared/shared.module';
 import { MovieInformationModule } from './movie-informations/movie-information.module';
 import { BookInformationModule } from './book-informations/book-information.module';
 import { HallsModule } from './halls/halls.module';
+import { BookSharedServicesModule } from './_shared/services/book-shared-services.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HallsModule } from './halls/halls.module';
     SharedModule,
     MovieInformationModule,
     BookInformationModule,
-    HallsModule
+    HallsModule,
+    BookSharedServicesModule
   ]
 })
 export class BookModule { }
