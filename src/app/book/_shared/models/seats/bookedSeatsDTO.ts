@@ -1,26 +1,28 @@
-import { IBookedRoomSeats, IBookedSeats, IBookedUserSeats } from './bookedSeatsREST.interface';
+import { IBookedRoomSeats, IBookedUserSeats } from './bookedSeatsREST.interface';
 import { IDeserialize } from '@api/core';
 
-export class BookedRoomSeatsDTO implements IDeserialize<BookedRoomSeatsDTO, IBookedRoomSeats>, IBookedRoomSeats {
+export type TBookedSeatsMap = Map<string, boolean>;
+
+export class BookedRoomSeatsDTO implements IDeserialize<BookedRoomSeatsDTO, IBookedRoomSeats> {
   room: number;
-  booked_seats: IBookedSeats;
+  bookedSeats: TBookedSeatsMap;
 
   public deserialize(obj: IBookedRoomSeats): BookedRoomSeatsDTO {
     this.room = obj.room;
-    this.booked_seats = obj.booked_seats;
+    this.bookedSeats = new Map(obj.booked_seats);
     return this;
   }
 }
 
-export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBookedUserSeats>, IBookedUserSeats {
+export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBookedUserSeats> {
   id: string;
   room: number;
-  booked_seats: IBookedSeats;
+  bookedSeats: TBookedSeatsMap;
 
   public deserialize(obj: IBookedUserSeats): BookedUserSeatsDTO {
     this.id = obj.id;
     this.room = obj.room;
-    this.booked_seats = obj.booked_seats;
+    this.bookedSeats = new Map(obj.booked_seats);
     return this;
   }
 }

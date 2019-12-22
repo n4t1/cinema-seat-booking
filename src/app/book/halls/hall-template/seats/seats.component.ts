@@ -13,7 +13,6 @@ export class SeatsComponent implements OnInit {
   @Input() public seatsPerRowNumber: number;
 
   public seatsPerRow: ISeat[];
-
   public rowForm: FormGroup;
 
   constructor() {
@@ -27,9 +26,10 @@ export class SeatsComponent implements OnInit {
   private setSeatsPerRowArray() {
     this.seatsPerRow = new Array<ISeat>(this.seatsPerRowNumber).fill({} as ISeat).map((el, i) => {
       return {
-        seatNumber: ++i,
+        seatNumber: i + 1,
         formControl: this.seatNumberFormControlName(i),
-        isEmptySpace: this.isEmptySpace(i)
+        isEmptySpace: this.isEmptySpace(i),
+        id: this.seatId(i)
       };
     });
   }
@@ -40,8 +40,12 @@ export class SeatsComponent implements OnInit {
 
   private isEmptySpace(seatNumber: number): boolean {
     if (!this.emptySpacePerRowNumber) { return false; }
-    const toSeat: number = this.emptySpacePerRowNumber.fromSeat + this.emptySpacePerRowNumber.emptySpaceNumber;
-    return this.emptySpacePerRowNumber.fromSeat < seatNumber && seatNumber <= toSeat;
+    const toSeat: number =  this.emptySpacePerRowNumber.fromSeat + this.emptySpacePerRowNumber.emptySpaceNumber;
+    return seatNumber >= this.emptySpacePerRowNumber.fromSeat && seatNumber < toSeat;
+  }
+
+  private seatId(seatNumber: number): number {
+    return seatNumber * (this.row + 1);
   }
 
   private setSeatNumberFormControls() {
@@ -57,4 +61,5 @@ interface ISeat {
   seatNumber: number;
   formControl: string;
   isEmptySpace: boolean;
+  id: number;
 }
