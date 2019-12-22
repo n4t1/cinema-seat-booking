@@ -21,14 +21,14 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@core/*": ["app/_core/*"],
-      "@shared/*": ["app/_shared/*"],
-      "@main/shared/*": ["app/main/_shared/*"],
-      "@book/shared/*": ["app/book/_shared/*"]
+      "@api/core": ["app/_api/_core/index"],
+      "@api/shared": ["app/_api/_shared/index"],
+      "@main/shared": ["app/main/_shared/index"],
+      "@book/shared": ["app/book/_shared/index"]
     }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  },
+  }
 }

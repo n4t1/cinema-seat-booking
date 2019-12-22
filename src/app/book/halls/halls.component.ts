@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HallsService } from '@shared/services/halls/halls.service';
-import { SeatsRowsDTO } from '@shared/models/halls/hallsDTO';
+import { HallsService, SeatsRowsDTO } from '@api/shared';
 
 @Component({
   selector: 'app-halls',

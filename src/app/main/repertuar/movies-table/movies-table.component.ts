@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
-import { MoviePlayDTO } from '@shared/models/repertuar/repertuarDTO';
+import { MoviePlayDTO, RepertuarService } from '@api/shared';
 
 @Component({
   selector: 'app-movies-table',

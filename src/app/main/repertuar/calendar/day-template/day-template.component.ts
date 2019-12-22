@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CalendarService } from '../../../_shared/services/calendar/calendar.service';
 import { Subscription } from 'rxjs';
+import { CalendarService } from '@main/shared';
 
 @Component({
   selector: 'app-day-template',

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IEmptySpace } from '@shared/models/halls/hallsREST.interface';
+import { IEmptySpace } from '@api/shared';
 
 @Component({
   selector: 'app-seats',

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MoviePlayDTO } from '@shared/models/repertuar/repertuarDTO';
-import { CalendarService } from '@main/shared/services/calendar/calendar.service';
 import { EMPTY, Observable } from 'rxjs';
+import { MoviePlayDTO } from '@api/shared';
+import { CalendarService } from '../../services';
 
 @Pipe({
   name: 'filterMoviesPlayByDate',

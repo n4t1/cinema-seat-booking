@@ -1,11 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
-import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
-import { GenreDTO, ProductionCountryDTO } from '@shared/models/movie-details/movieDetailsDTO';
-import { MoviePlayLangEnum, MoviePlayViewEnum, PlayedDTO } from '@shared/models/repertuar/repertuarDTO';
-import { ConvertAndFormatTimePipe } from '@shared/pipes/convert-and-format-time/convertAndFormatTime.pipe';
 import { Subscription } from 'rxjs';
-import { CalendarService } from '@main/shared/services/calendar/calendar.service';
+import { ConvertAndFormatTimePipe, GenreDTO, MovieTMDBService, PlayedDTO, ProductionCountryDTO, RepertuarService } from '@api/shared';
+import { CalendarService } from '@main/shared';
 
 @Component({
   selector: 'app-movie-template',

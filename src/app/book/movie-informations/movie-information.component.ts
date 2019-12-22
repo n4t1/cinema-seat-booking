@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RepertuarService } from '@shared/services/repertuar/repertuar.service';
-import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
+import { MovieTMDBService, RepertuarService } from '@api/shared';
 
 @Component({
   selector: 'app-movie-information',

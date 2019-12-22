@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RepertuarComponent } from './repertuar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { MoviesTableModule } from './movies-table/movies-table.module';
-import { SharedModule } from '@shared/shared.module';
-import { CalendarService } from '@main/shared/services/calendar/calendar.service';
+import { SharedModule } from '@api/shared';
 
 
 
@@ -18,7 +17,6 @@ import { CalendarService } from '@main/shared/services/calendar/calendar.service
   CalendarModule,
   MoviesTableModule
 ],
-  providers: [CalendarService],
   exports: [RepertuarComponent]
 })
 export class RepertuarModule { }

@@ -9,13 +9,13 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { LoginModule } from './login/login.module';
 import { BookModule } from './book/book.module';
-import { SharedServicesModule } from '@shared/services/shared-services.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { TmdbMovieSearchModule } from './tmdb-movie-search/tmdb-movie-search.module';
 
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
+import { SharedServicesModule } from '@api/shared';
 
 registerLocaleData(localePl, 'pl');
 

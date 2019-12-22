@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MovieTMDBService } from '@shared/services/movie-tmdb/movie-tmdb.service';
 import { debounce, debounceTime } from 'rxjs/operators';
+import { MovieTMDBService } from '@api/shared';
 
 @Component({
   selector: 'app-search',

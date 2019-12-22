@@ -1,5 +1,5 @@
-import { IDeserialize } from '@core/models/deserialize.interface';
 import { IBookedRoomSeats, IBookedSeats, IBookedUserSeats } from './bookedSeatsREST.interface';
+import { IDeserialize } from '@api/core';
 
 export class BookedRoomSeatsDTO implements IDeserialize<BookedRoomSeatsDTO, IBookedRoomSeats>, IBookedRoomSeats {
   room: number;

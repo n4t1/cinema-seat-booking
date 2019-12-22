@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ISeatsRows } from '@shared/models/halls/hallsREST.interface';
+import { ISeatsRows } from '@api/shared';
 
 @Component({
   selector: 'app-hall-template',
