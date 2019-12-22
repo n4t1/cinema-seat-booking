@@ -5,8 +5,8 @@ import {
   MoviePlayDTO,
   CalendarDTO,
   PlayedDTO
-} from '@shared/models/repertuar/repertuarDTO.js';
-import { IRepertuarRest } from '@shared/models/repertuar/repertuarREST.interface.js';
+} from '@shared/models/repertuar/repertuarDTO';
+import { IRepertuarRest } from '@shared/models/repertuar/repertuarREST.interface';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, filter, first } from 'rxjs/operators';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';

@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { QueryMoviesDTO } from '../../models/query-movies/queryMoviesDTO';
-import { MovieDetailsDTO } from '../../models/movie-details/movieDetailsDTO';
-import { IQueryMoviesRest } from '../../models/query-movies/queryMoviesREST.interface';
-import { IMovieDetailsRest } from '../../models/movie-details/movieDetailsREST.interface';
+import { MovieDetailsDTO } from '@shared/models/movie-details/movieDetailsDTO';
+import { IMovieDetailsRest } from '@shared/models/movie-details/movieDetailsREST.interface';
+import { QueryMoviesDTO } from '@shared/models/query-movies/queryMoviesDTO';
+import { IQueryMoviesRest } from '@shared/models/query-movies/queryMoviesREST.interface';
+
 @Injectable()
 export class MovieTMDBService {
   private readonly API_KEY = '?api_key=fe1a1a777485b3e314f16af8e051dfb4';

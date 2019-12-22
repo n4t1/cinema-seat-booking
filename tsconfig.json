@@ -18,13 +18,14 @@
       "es2018",
       "dom"
     ],
-    "resolveJsonModule": true, 
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
       "@core/*": ["app/_core/*"],
       "@shared/*": ["app/_shared/*"],
-      "@main/shared/*": ["app/main/_shared/*"]
-    },
+      "@main/shared/*": ["app/main/_shared/*"],
+      "@book/shared/*": ["app/book/_shared/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
