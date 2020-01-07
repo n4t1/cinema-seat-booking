@@ -2,11 +2,12 @@
   <div class="content">
     <div class="information-container">
       <div class="information-content">
-        <div class="router-link"><a routerLink="/main">Repertuar</a></div>
-        <div class="title">
-          {{title}}
-        </div>
-        <div class="date">{{selectedTime | date: 'dd.MM'}} godz. {{selectedTime | date: 'HH:mm'}}</div>
+        <p class="router-link"><a routerLink="/main">Powrót do repertuaru</a></p>
+        <p class="title">
+          <span class="selected">Wybrany film: </span>
+          <span>{{title}}</span>
+        </p>
+        <p class="date">{{selectedTime | date: 'dd.MM'}} godz. {{selectedTime | date: 'HH:mm'}}</p>
       </div>
       <div class="split-line"></div>
     </div>

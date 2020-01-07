@@ -65,13 +65,12 @@
                 box-shadow: 0 0 5px 0 lawngreen;
                 box-sizing: border-box;
 
-                div:first-child {
+                span:first-child {
                   padding-bottom: 5px;
                   font-size: 1.4rem;
                 }
 
                 &:hover {
-                  //border-width: 3px;
                   border: unset;
                   background: linear-gradient(90deg,#7cfc004f,lawngreen);
                   color: white;

@@ -1,11 +1,19 @@
 <div class="container">
   <div class="content">
 
-    <button class="day" (click)="showRepertuar()" [disabled]="disabledSelectedDate">
-      <div class="name-day">{{date | date:'EEE'}}</div>
-      <div class="date">{{date | date:'d'}}</div>
-      <div class="name-month">{{date | date:'MMM'}}</div>
+    <button class="day" (click)="showRepertuar()" *ngIf="!disabledSelectedDate; else disabledDate">
+      <span class="name-day">{{date | date:'EEE'}}</span>
+      <span class="date">{{date | date:'d'}}</span>
+      <span class="name-month">{{date | date:'MMM'}}</span>
     </button>
+
+    <ng-template #disabledDate>
+      <p class="day disabledDate">
+        <span class="name-day">{{date | date:'EEE'}}</span>
+        <span class="date">{{date | date:'d'}}</span>
+        <span class="name-month">{{date | date:'MMM'}}</span>
+      </p>
+    </ng-template>
 
   </div>
 </div>

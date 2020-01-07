@@ -22,9 +22,13 @@
         font-size: 1.125rem;
         font-weight: bold;
 
-        .router-link {
+        .title .selected {
           font-weight: normal;
-          cursor: pointer;
+          font-size: 0.875rem;
+        }
+
+        .router-link {
+          font-weight: normal;cursor: pointer;
         }
       }
 

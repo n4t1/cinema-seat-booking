@@ -3,20 +3,21 @@ import { CommonModule } from '@angular/common';
 import { RepertuarComponent } from './repertuar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { MoviesTableModule } from './movies-table/movies-table.module';
-import { SharedModule } from '@api/shared';
-
+import { SharedModule, CinemaNameModule } from '@api/shared';
 
 
 @NgModule({
   declarations: [
-  RepertuarComponent
-],
+    RepertuarComponent
+  ],
   imports: [
-  CommonModule,
-  SharedModule,
-  CalendarModule,
-  MoviesTableModule
-],
+    CommonModule,
+    SharedModule,
+    CalendarModule,
+    MoviesTableModule,
+    CinemaNameModule
+  ],
   exports: [RepertuarComponent]
 })
-export class RepertuarModule { }
+export class RepertuarModule {
+}

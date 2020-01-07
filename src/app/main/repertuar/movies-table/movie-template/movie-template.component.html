@@ -7,46 +7,43 @@
 
       <div class="information">
         <div class="movie-details">
-          <div class="title">{{ title | noData }}</div>
+          <p class="title"><span>{{ title | noData }}</span></p>
 
-          <div class="genres">
+          <p class="genres">
+            <span>Gatunek: </span>
             <span *ngFor="let genre of genres; let last = last">
-              <span>{{ genre?.name | noData }}</span>
-              <span *ngIf="!last" class="backslash"> / </span>
+              {{ genre?.name | noData }} {{!last ? '/ ' : ''}}
             </span>
-          </div>
+          </p>
 
-          <div class="runtime">
-            <span>Czas trwania: </span>
-            <span>{{ runtime | noData }}</span>
-            <span> min.</span>
-          </div>
+          <p class="runtime">
+            <span>Czas trwania: {{ runtime | noData }} min.</span>
+          </p>
 
-          <div class="production">
+          <p class="production">
             <span>Produkcja: </span>
             <span *ngFor="let productionCountry of productionCountries; let last = last">
-              <span>{{ productionCountry?.name | noData }}</span>
-              <span *ngIf="!last" class="backslash">/</span>
+              {{ productionCountry?.name | noData }}  {{!last ? '/ ' : ''}}
             </span>
             <span class="releaseDate"> [{{ releaseDate | convertAndFormatDate: 'y' | noData }}]</span>
-          </div>
+          </p>
         </div>
 
-        <div class="play-times">
-          <div *ngFor="let movie of played; let index = index">
+        <p class="play-times">
+          <span *ngFor="let movie of played; let index = index">
             <div class="time-container">
               <a [routerLink]="bookRouterLink(index, movie?.time)" class="router-link">
                 <div class="time">
-                  <div>{{ movie?.time | convertAndFormatTime: selectedDay:'HH:mm' | noData }}</div>
-                  <div class="view-and-language">
+                  <span>{{ movie?.time | convertAndFormatTime: selectedDay:'HH:mm' | noData }}</span>
+                  <span>
                     {{ movie?.view | setMoviePlayView | noData }},
                     {{ movie?.lang | setMoviePlayLang: originalLanguage | async | noData }}
-                  </div>
+                  </span>
                 </div>
               </a>
             </div>
-          </div>
-        </div>
+          </span>
+        </p>
       </div>
     </div>
   </div>

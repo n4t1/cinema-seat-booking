@@ -1,7 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ConvertAndFormatTimePipe, GenreDTO, MovieTMDBService, PlayedDTO, ProductionCountryDTO, RepertuarService } from '@api/shared';
+import {
+  ConvertAndFormatTimePipe,
+  GenreDTO, MoviePlayLangEnum,
+  MoviePlayViewEnum,
+  MovieTMDBService,
+  PlayedDTO,
+  ProductionCountryDTO,
+  RepertuarService,
+  SetMoviePlayLangPipe,
+  SetMoviePlayViewPipe
+} from '@api/shared';
 import { CalendarService } from '@main/shared';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-template',
@@ -52,8 +63,11 @@ export class MovieTemplateComponent implements OnInit {
   constructor(
     private movieTMDBService: MovieTMDBService,
     private repertuarService: RepertuarService,
+    private calendarService: CalendarService,
     private convertAndFormatTimePipe: ConvertAndFormatTimePipe,
-    private calendarService: CalendarService
+    private setMoviePlayViewPipe: SetMoviePlayViewPipe,
+    private setMoviePlayLangPipe: SetMoviePlayLangPipe,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -67,15 +81,54 @@ export class MovieTemplateComponent implements OnInit {
 
   private setMovieDetails() {
     this.movieTMDBService.getMovieDetails(this.tmdbID).subscribe(movieDetails => {
-      this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.poster_path);
-      this.posterAlt = `Poster ${movieDetails.title}`;
+      this.title = movieDetails.title;
       this.genres = movieDetails.genres;
       this.runtime = movieDetails.runtime;
       this.productionCountries = movieDetails.production_countries;
       this.releaseDate = movieDetails.release_date;
-      this.title = movieDetails.title;
       this.originalLanguage = movieDetails.original_language;
+
+      this.setPosterAlt();
+      this.posterURL = this.movieTMDBService.getImagesURL(movieDetails.poster_path);
     });
+  }
+
+  private setPosterAlt() {
+    let alt = `${this.title}`;
+    alt += `, gatunek: `;
+    this.genres.forEach((el: GenreDTO, i: number) => {
+      alt += `${el.name}`;
+      if (i !== this.genres.length - 1) {
+        alt += `, `;
+      }
+    });
+    alt += `, czas trwania: ${this.runtime} min`;
+    alt += `, kiedy gramy: ${this.getDate(this.selectedDay)} `;
+    this.played.forEach((el: PlayedDTO, i: number) => {
+      alt += `${this.getTime(el.time)} ${this.getView(el.view)}, ${this.getLang(el.lang)}`;
+      if (i !== this.played.length - 1) {
+        alt += `, lub `;
+      }
+    });
+    this.posterAlt = alt;
+  }
+
+  private getDate(val: string): string {
+    return this.datePipe.transform(val, 'EEE d MMM');
+  }
+
+  private getTime(val: string): string {
+    return this.convertAndFormatTimePipe.transform(val, this.selectedDay, 'HH:mm') + '';
+  }
+
+  private getView(time: MoviePlayViewEnum): string {
+    return this.setMoviePlayViewPipe.transform(time);
+  }
+
+  private getLang(time: MoviePlayLangEnum): string {
+    let lang: string;
+    this.setMoviePlayLangPipe.transform(time).subscribe(val => lang = val);
+    return lang;
   }
 
   private setMoviePlayed() {
