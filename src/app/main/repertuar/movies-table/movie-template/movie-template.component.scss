@@ -1,12 +1,12 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  //height: 100%;
 
   .content {
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 100%;
 
     .movie {
       position: relative;
@@ -15,6 +15,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 10px 0;
 
       .poster {
         width: 130px;
@@ -39,6 +40,7 @@
 
         .play-times {
           display: flex;
+          flex-wrap: wrap;
           padding: 10px 10px 0;
 
           .time-container {
@@ -79,6 +81,19 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media(max-width: 760px) {
+  .container .content {
+    .movie {
+      flex-direction: column;
+
+      .information {
+        width: unset;
+        align-self: start;
       }
     }
   }
