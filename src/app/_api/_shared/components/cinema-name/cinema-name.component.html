@@ -1,8 +1,20 @@
-
 <div class="container">
   <div class="content">
-    <p class="title">
-      <span>BlackJack CinemA</span>
-    </p>
+    <div class="title">
+      <p>BlackJack CinemA</p>
+    </div>
+    <div class="better-screen-read">
+      <div class="invert_colors">
+        <button mat-icon-button matSuffix (click)="insertColor = !insertColor" [attr.aria-label]="'Zamień kolory'"
+                [attr.aria-pressed]="insertColor">
+          <mat-icon>{{insertColor ? 'invert_colors' : 'invert_colors_off'}}</mat-icon>
+        </button>
+      </div>
+      <div class="change-font-size">
+        <button mat-icon-button matSuffix (click)="changeFontSize()" [attr.aria-label]="'Zmień czcionkę'">
+          <mat-icon>format_size</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
