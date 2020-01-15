@@ -1,0 +1,33 @@
+
+/**MOBILE*/
+$mobile-700: 700px;
+$mobile-500: 500px;
+
+@mixin styleTablet() {
+  @media(max-width: $mobile-700) {
+    @content;
+  }
+}
+
+@mixin styleMobile() {
+  @media(max-width: $mobile-500) {
+    @content;
+  }
+}
+
+/**FONT-SIZE*/
+$defaultFontSize-min: 0; // the same as better-screen-read.service.ts defaultFontSize.min
+$defaultFontSize-max: 4; // the same as better-screen-read.service.ts defaultFontSize.max
+
+@mixin createFontSizeClass($font-size) {
+  html {
+    font-size: #{$font-size}px;
+  }
+
+  @for $i from $defaultFontSize-min through $defaultFontSize-max {
+    $changed-font-size: $font-size + $i;
+    html.change-font-size-#{$i} {
+      font-size: #{$changed-font-size}px;
+    }
+  }
+}

@@ -19,12 +19,16 @@
         display: flex;
         justify-content: space-between;
         padding-bottom: 5px;
-        font-size: 1.125rem;
+        font-size: 1.125em;
         font-weight: bold;
 
-        .title .selected {
-          font-weight: normal;
-          font-size: 0.875rem;
+        .title {
+          margin: 0 10px;
+
+          & .selected {
+            font-weight: normal;
+            font-size: 0.875em;
+          }
         }
 
         .router-link {

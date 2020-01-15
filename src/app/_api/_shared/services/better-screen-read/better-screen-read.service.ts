@@ -4,16 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class BetterScreenReadService {
-  public static readonly DEFAULT_FONT_SIZE = 16;
   private fontSize: number;
   private defaultFontSize = {
-    max: 20,
-    min: BetterScreenReadService.DEFAULT_FONT_SIZE,
+    max: 4, // the same as variables.scss $defaultFontSize-max
+    min: 0, // the same as variables.scss $defaultFontSize-min
     direction: true
   };
 
   constructor() {
-    this.fontSize = BetterScreenReadService.DEFAULT_FONT_SIZE;
+    this.fontSize = this.defaultFontSize.min;
   }
 
   public changeFontSize(): number {

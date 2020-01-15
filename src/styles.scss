@@ -1,15 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+@import "variables";
+
+@include createFontSizeClass(16);
 
 html, body {
   height: 100%;
+  background: white;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 p {
   margin: 0
 }
+
+button, input {
+  outline: none;
+  font-size: 0.875rem;
+}
+
+.container {
+  background: white;
+}
+
+.invert-colors {
+  -webkit-filter: invert(100%);
+  -moz-filter: invert(100%);
+  -ms-filter: invert(100%);
+  -o-filter: invert(100%);
+  filter: invert(100%);
+}
+
+@include styleTablet() {
+  @include createFontSizeClass(12);
+}
+
+@include styleMobile() {
+  @include createFontSizeClass(12);
+}
+

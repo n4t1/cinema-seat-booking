@@ -1,3 +1,4 @@
+@import "variables";
 
 .container {
   position: relative;
@@ -32,8 +33,9 @@
           border: solid 1px;
           box-sizing: border-box;
           cursor: pointer;
-          outline: none;
           text-transform: uppercase;
+          text-align: center;
+          padding: 0;
 
           &:active {
             border-width: 2px;
@@ -49,6 +51,28 @@
           height: 35px;
           margin: 2px;
         }
+      }
+    }
+  }
+}
+
+@include styleTablet() {
+  .container .content .row {
+    .row-form {
+      .empty-space, .button {
+        width: 20px;
+        height: 25px;
+      }
+    }
+  }
+}
+
+@include styleMobile() {
+  .container .content .row {
+    .row-form {
+      .empty-space, .button {
+        width: 14px;
+        height: 20px;
       }
     }
   }

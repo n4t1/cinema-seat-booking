@@ -4,13 +4,13 @@
       <p>BlackJack CinemA</p>
     </div>
     <div class="better-screen-read">
-      <div class="invert_colors">
-        <button mat-icon-button matSuffix (click)="insertColor = !insertColor" [attr.aria-label]="'Zamień kolory'"
-                [attr.aria-pressed]="insertColor">
-          <mat-icon>{{insertColor ? 'invert_colors' : 'invert_colors_off'}}</mat-icon>
+      <div>
+        <button mat-icon-button matSuffix (click)="invertColors()" [attr.aria-label]="'Zamień kolory'"
+                [attr.aria-pressed]="invert">
+          <mat-icon>{{invert ? 'invert_colors' : 'invert_colors_off'}}</mat-icon>
         </button>
       </div>
-      <div class="change-font-size">
+      <div>
         <button mat-icon-button matSuffix (click)="changeFontSize()" [attr.aria-label]="'Zmień czcionkę'">
           <mat-icon>format_size</mat-icon>
         </button>

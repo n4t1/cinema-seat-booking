@@ -7,18 +7,34 @@ import { BetterScreenReadService } from '../../services/index';
   styleUrls: ['./cinema-name.component.scss']
 })
 export class CinemaNameComponent implements OnInit {
-  public insertColor = true;
+  public invert = false;
+
+  private readonly htmlElementRef: HTMLElement;
+  private fontSizeCounter = 0;
 
   constructor(
     private renderer2: Renderer2,
     private betterScreenReadService: BetterScreenReadService
-  ) {}
+  ) {
+    this.htmlElementRef = document.getElementById('html');
+  }
 
   ngOnInit() {
   }
 
   public changeFontSize() {
-    const fontSize = this.betterScreenReadService.changeFontSize();
-    this.renderer2.setStyle(document.body, 'font-size', `${fontSize}px`);
+    this.renderer2.removeClass(this.htmlElementRef, `change-font-size-${this.fontSizeCounter}`);
+    this.fontSizeCounter = this.betterScreenReadService.changeFontSize();
+    this.renderer2.addClass(this.htmlElementRef, `change-font-size-${this.fontSizeCounter}`);
+  }
+
+  public invertColors() {
+    this.invert = !this.invert;
+
+    if (this.invert) {
+      this.renderer2.addClass(this.htmlElementRef, 'invert-colors');
+    } else {
+      this.renderer2.removeClass(this.htmlElementRef, 'invert-colors');
+    }
   }
 }
