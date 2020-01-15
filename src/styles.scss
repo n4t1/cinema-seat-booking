@@ -47,3 +47,53 @@ button, input {
   @include createFontSizeClass(12);
 }
 
+
+/***************************************************
+******************* SHARED STYLES*******************
+***************************************************/
+
+app-seats, app-book-information {
+  .seats-button {
+    background: unset;
+    border: solid 1px;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:active {
+      border-width: 2px;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+.seats-button, .empty-seats-button {
+    position: relative;
+    width: 30px;
+    height: 35px;
+    margin: 2px;
+  }
+
+  @include styleTablet() {
+    .seats-button, .empty-seats-button {
+      // FIXME: use transform: scale() to change size of hall
+      width: 20px;
+      height: 25px;
+    }
+  }
+
+  @include styleMobile() {
+    .seats-button, .empty-seats-button {
+      // FIXME: use transform: scale() to change size of hall
+      width: 14px;
+      height: 20px;
+    }
+  }
+}
+

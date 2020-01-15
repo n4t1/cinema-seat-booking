@@ -27,54 +27,6 @@
       .row-form {
         display: flex;
         justify-content: center;
-
-        .button {
-          background: unset;
-          border: solid 1px;
-          box-sizing: border-box;
-          cursor: pointer;
-          text-transform: uppercase;
-          text-align: center;
-          padding: 0;
-
-          &:active {
-            border-width: 2px;
-          }
-
-          &:disabled {
-            cursor: default;
-          }
-        }
-
-        .empty-space, .button {
-          width: 30px;
-          height: 35px;
-          margin: 2px;
-        }
-      }
-    }
-  }
-}
-
-@include styleTablet() {
-  .container .content .row {
-    .row-form {
-      .empty-space, .button {
-        // FIXME: use transform: scale() to change size of hall
-        width: 20px;
-        height: 25px;
-      }
-    }
-  }
-}
-
-@include styleMobile() {
-  .container .content .row {
-    .row-form {
-      .empty-space, .button {
-        // FIXME: use transform: scale() to change size of hall
-        width: 14px;
-        height: 20px;
       }
     }
   }

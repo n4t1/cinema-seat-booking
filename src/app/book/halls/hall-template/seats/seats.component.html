@@ -5,10 +5,11 @@
 
       <form class="row-form" [formGroup]="rowForm">
         <div *ngFor="let seat of seatsPerRow">
-          <input *ngIf="!seat?.isEmptySpace; else emptySpace" class="button" type="button" [value]="seat?.seatNumber" [formControlName]="seat?.formControl">
-          <ng-template #emptySpace>
-            <div class="empty-space"></div>
-          </ng-template>
+          <ng-container [ngSwitch]="seat?.space">
+            <div *ngSwitchCase="seatSpaceEnum.EMPTY" class="empty-seats-button"></div>
+            <div *ngSwitchCase="seatSpaceEnum.BOOKED" class="seats-button"><mat-icon>face</mat-icon></div>
+            <input *ngSwitchDefault class="seats-button" type="button" [value]="seat?.seatNumber" [formControlName]="seat?.formControl">
+          </ng-container>
         </div>
       </form>
 

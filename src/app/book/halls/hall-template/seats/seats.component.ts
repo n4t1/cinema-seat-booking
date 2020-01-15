@@ -15,6 +15,8 @@ export class SeatsComponent implements OnInit {
   public seatsPerRow: ISeat[];
   public rowForm: FormGroup;
 
+  public seatSpaceEnum = SeatSpaceEnum;
+
   constructor() {
   }
 
@@ -28,7 +30,7 @@ export class SeatsComponent implements OnInit {
       return {
         seatNumber: i + 1,
         formControl: this.seatNumberFormControlName(i),
-        isEmptySpace: this.isEmptySpace(i),
+        space: this.isEmptySpace(i),
         id: this.seatId(i)
       };
     });
@@ -38,10 +40,10 @@ export class SeatsComponent implements OnInit {
     return `seatNumber${seatNumber}`;
   }
 
-  private isEmptySpace(seatNumber: number): boolean {
-    if (!this.emptySpacePerRowNumber) { return false; }
+  private isEmptySpace(seatNumber: number): SeatSpaceEnum {
+    if (!this.emptySpacePerRowNumber) { return SeatSpaceEnum.DEFAULT; }
     const toSeat: number =  this.emptySpacePerRowNumber.fromSeat + this.emptySpacePerRowNumber.emptySpaceNumber;
-    return seatNumber >= this.emptySpacePerRowNumber.fromSeat && seatNumber < toSeat;
+    return (seatNumber >= this.emptySpacePerRowNumber.fromSeat && seatNumber < toSeat) ? SeatSpaceEnum.EMPTY : SeatSpaceEnum.DEFAULT;
   }
 
   private seatId(seatNumber: number): number {
@@ -57,9 +59,15 @@ export class SeatsComponent implements OnInit {
   }
 }
 
+enum SeatSpaceEnum {
+  EMPTY,
+  BOOKED,
+  DEFAULT
+}
+
 interface ISeat {
   seatNumber: number;
   formControl: string;
-  isEmptySpace: boolean;
   id: number;
+  space: SeatSpaceEnum;
 }
