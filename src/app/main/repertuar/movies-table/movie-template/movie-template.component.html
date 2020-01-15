@@ -32,7 +32,7 @@
         <p class="play-times">
           <span *ngFor="let movie of played; let index = index">
             <div class="time-container">
-              <a [routerLink]="bookRouterLink(index, movie?.time)" class="router-link">
+              <a [routerLink]="bookRouterLink(movie.room, movie?.time)" class="router-link">
                 <div class="time">
                   <span>{{ movie?.time | convertAndFormatTime: selectedDay:'HH:mm' | noData }}</span>
                   <span>

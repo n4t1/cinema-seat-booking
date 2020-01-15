@@ -75,8 +75,8 @@ export class MovieTemplateComponent implements OnInit {
     this.getSelectedCalendarDay();
   }
 
-  public bookRouterLink(playTimeId: number, time: string): any[] {
-    return ['/book', this.id, playTimeId, this.convertAndFormatTimePipe.transform(time, this.selectedDay).valueOf()];
+  public bookRouterLink(roomId: number, time: string): any[] {
+    return ['/book', this.id, roomId, this.convertAndFormatTimePipe.transform(time, this.selectedDay).valueOf()];
   }
 
   private setMovieDetails() {

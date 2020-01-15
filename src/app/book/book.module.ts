@@ -6,7 +6,7 @@ import { BookComponent } from './book.component';
 import { MovieInformationModule } from './movie-informations/movie-information.module';
 import { BookInformationModule } from './book-informations/book-information.module';
 import { HallsModule } from './halls/halls.module';
-import { SharedModule } from '@api/shared';
+import { CinemaNameModule, SharedModule } from '@api/shared';
 import { BookSharedServicesModule } from '@book/shared';
 
 
@@ -19,7 +19,8 @@ import { BookSharedServicesModule } from '@book/shared';
     MovieInformationModule,
     BookInformationModule,
     HallsModule,
-    BookSharedServicesModule
+    BookSharedServicesModule,
+    CinemaNameModule
   ]
 })
 export class BookModule { }
