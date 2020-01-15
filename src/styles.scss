@@ -37,6 +37,10 @@ button, input {
 
 @include styleTablet() {
   @include createFontSizeClass(12);
+
+  //body {
+  //  transform: scale(0.9);
+  //}
 }
 
 @include styleMobile() {

@@ -60,6 +60,7 @@
   .container .content .row {
     .row-form {
       .empty-space, .button {
+        // FIXME: use transform: scale() to change size of hall
         width: 20px;
         height: 25px;
       }
@@ -71,6 +72,7 @@
   .container .content .row {
     .row-form {
       .empty-space, .button {
+        // FIXME: use transform: scale() to change size of hall
         width: 14px;
         height: 20px;
       }

@@ -5,13 +5,13 @@
     </div>
     <div class="better-screen-read">
       <div>
-        <button mat-icon-button matSuffix (click)="invertColors()" [attr.aria-label]="'Zamień kolory'"
+        <button mat-icon-button matSuffix (click)="invertColors()" title="Zamień kolory" [attr.aria-label]="'Zamień kolory'"
                 [attr.aria-pressed]="invert">
           <mat-icon>{{invert ? 'invert_colors' : 'invert_colors_off'}}</mat-icon>
         </button>
       </div>
       <div>
-        <button mat-icon-button matSuffix (click)="changeFontSize()" [attr.aria-label]="'Zmień czcionkę'">
+        <button mat-icon-button matSuffix (click)="changeFontSize()" title="Zmień czcionkę" [attr.aria-label]="'Zmień czcionkę'">
           <mat-icon>format_size</mat-icon>
         </button>
       </div>
