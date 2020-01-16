@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BookedSeatsService } from '@book/shared';
 
 @Component({
   selector: 'app-book',
@@ -8,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookComponent implements OnInit {
   public moviePlayId: number;
-  public selectedTimeId: number;
+  public roomId: number;
   public selectedTime: Date;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private bookedSeatsService: BookedSeatsService
   ) {
   }
 
@@ -22,8 +24,10 @@ export class BookComponent implements OnInit {
 
   private getParamMap() {
     this.moviePlayId = +this.activatedRoute.snapshot.paramMap.get('moviePlayId');
-    this.selectedTimeId = +this.activatedRoute.snapshot.paramMap.get('selectedTimeId');
+    this.roomId = +this.activatedRoute.snapshot.paramMap.get('roomId');
     const selectedTimeNumber: number = +this.activatedRoute.snapshot.paramMap.get('selectedTimeNumber');
     this.selectedTime = new Date(selectedTimeNumber);
+
+    this.bookedSeatsService.setBookedSeatsInformation(this.roomId);
   }
 }

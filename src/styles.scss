@@ -65,11 +65,17 @@ app-seats, app-book-information {
     align-items: center;
 
     &:active {
-      border-width: 2px;
+      //border: solid 2px lawngreen;
     }
 
-    &:disabled {
-      cursor: default;
+    &.select {
+      background-color: lawngreen;
+      color: white;
+      transition: 200ms;
+    }
+
+    &.unselect {
+      transition: 200ms;
     }
   }
 

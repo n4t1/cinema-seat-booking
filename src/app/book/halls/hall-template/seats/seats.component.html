@@ -3,15 +3,23 @@
     <div class="row">
       <span class="row-number">{{row}}</span>
 
-      <form class="row-form" [formGroup]="rowForm">
+      <div class="row-form">
         <div *ngFor="let seat of seatsPerRow">
           <ng-container [ngSwitch]="seat?.space">
             <div *ngSwitchCase="seatSpaceEnum.EMPTY" class="empty-seats-button"></div>
-            <div *ngSwitchCase="seatSpaceEnum.BOOKED" class="seats-button"><mat-icon>face</mat-icon></div>
-            <input *ngSwitchDefault class="seats-button" type="button" [value]="seat?.seatNumber" [formControlName]="seat?.formControl">
+            <div *ngSwitchCase="seatSpaceEnum.BOOKED" class="seats-button">
+              <mat-icon>face</mat-icon>
+            </div>
+            <button *ngSwitchDefault
+                    #seatNumber
+                    [id]="seat?.formControl"
+                    class="seats-button"
+                    (click)="selectSeat(seat)">
+              {{seat?.seatNumber}}
+            </button>
           </ng-container>
         </div>
-      </form>
+      </div>
 
       <span class="row-number">{{row}}</span>
     </div>

@@ -3,6 +3,8 @@ import { BookedRoomSeatsDTO, BookedUserSeatsDTO } from '../../models';
 
 @Injectable()
 export class BookedSeatsService {
+  private bookedUserSeats: BookedUserSeatsDTO;
+  private bookedRoomSeats: BookedRoomSeatsDTO;
 
   /** collection: book -> document: booked-room-seats -> collection: rooms -> document: id: number, booked_seats: [string, string][]
    *                                                                       -> ...
@@ -12,7 +14,16 @@ export class BookedSeatsService {
    *
    */
 
-  constructor() { }
+  constructor() {
+    this.bookedUserSeats = new BookedUserSeatsDTO();
+    this.bookedUserSeats.bookedSeats = new Map<number, boolean>();
+    this.bookedRoomSeats = new BookedRoomSeatsDTO();
+  }
+
+  public setBookedSeatsInformation(roomId: number) {
+    this.bookedUserSeats.roomId = roomId;
+    this.bookedRoomSeats.roomId = roomId;
+  }
 
   public getBookedRoomSeats() {
 
@@ -26,8 +37,16 @@ export class BookedSeatsService {
 
   }
 
-  public setBookedUserSeats(bookedSeats: BookedUserSeatsDTO) {
+  public saveBookedUserSeats(bookedSeats: BookedUserSeatsDTO) {
 
+  }
+
+  public setBookedUserSeats(seatId: number) {
+    this.bookedUserSeats.bookedSeats.set(seatId, true);
+  }
+
+  public deleteBookedUserSeats(seatId: number) {
+    this.bookedUserSeats.bookedSeats.delete(seatId);
   }
 
 }

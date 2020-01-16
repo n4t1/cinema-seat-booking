@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { IEmptySpace } from '@api/shared';
+import { BookedSeatsService, BookedUserSeatsDTO } from '@book/shared';
 
 @Component({
   selector: 'app-seats',
@@ -8,21 +8,39 @@ import { IEmptySpace } from '@api/shared';
   styleUrls: ['./seats.component.scss']
 })
 export class SeatsComponent implements OnInit {
+  public readonly seatSpaceEnum = SeatSpaceEnum;
   @Input() public row: number;
   @Input() public emptySpacePerRowNumber: IEmptySpace;
   @Input() public seatsPerRowNumber: number;
 
   public seatsPerRow: ISeat[];
-  public rowForm: FormGroup;
 
-  public seatSpaceEnum = SeatSpaceEnum;
+  @ViewChildren('seatNumber') private seatNumber: QueryList<ElementRef>;
 
-  constructor() {
+  constructor(
+    private renderer2: Renderer2,
+    private bookedSeatsService: BookedSeatsService
+  ) {
   }
 
   ngOnInit() {
     this.setSeatsPerRowArray();
-    this.setSeatNumberFormControls();
+  }
+
+  public selectSeat(seat: ISeat) {
+    const nativeElement = this.seatNumber.toArray()[seat.id].nativeElement;
+
+    if (seat.space === SeatSpaceEnum.SELECTED) {
+      this.renderer2.removeClass(nativeElement, 'select');
+      this.renderer2.addClass(nativeElement, 'unselect');
+      seat.space = SeatSpaceEnum.DEFAULT;
+      this.bookedSeatsService.deleteBookedUserSeats(this.seatId(seat.id));
+    } else {
+      this.renderer2.removeClass(nativeElement, 'unselect');
+      this.renderer2.addClass(nativeElement, 'select');
+      seat.space = SeatSpaceEnum.SELECTED;
+      this.bookedSeatsService.setBookedUserSeats(this.seatId(seat.id));
+    }
   }
 
   private setSeatsPerRowArray() {
@@ -31,7 +49,7 @@ export class SeatsComponent implements OnInit {
         seatNumber: i + 1,
         formControl: this.seatNumberFormControlName(i),
         space: this.isEmptySpace(i),
-        id: this.seatId(i)
+        id: i
       };
     });
   }
@@ -50,18 +68,20 @@ export class SeatsComponent implements OnInit {
     return seatNumber * (this.row + 1);
   }
 
-  private setSeatNumberFormControls() {
-    const formControls: { [k: string]: FormControl } = {};
-    this.seatsPerRow.forEach(el => {
-      formControls[el.formControl] = new FormControl('');
-    });
-    this.rowForm = new FormGroup(formControls);
-  }
+  // public rowForm: FormGroup;
+  // private setSeatNumberFormControls() {
+  //   const formControls: { [k: string]: FormControl } = {};
+  //   this.seatsPerRow.forEach(el => {
+  //     formControls[el.formControl] = new FormControl('');
+  //   });
+  //   this.rowForm = new FormGroup(formControls);
+  // }
 }
 
 enum SeatSpaceEnum {
   EMPTY,
   BOOKED,
+  SELECTED,
   DEFAULT
 }
 
