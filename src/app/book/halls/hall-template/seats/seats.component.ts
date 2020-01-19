@@ -1,13 +1,14 @@
-import { Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { IEmptySpace } from '@api/shared';
 import { BookedSeatsService, TBookedSeatsMap } from '@book/shared';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seats',
   templateUrl: './seats.component.html',
   styleUrls: ['./seats.component.scss']
 })
-export class SeatsComponent implements OnInit {
+export class SeatsComponent implements OnInit, OnDestroy {
   public readonly seatSpaceEnum = SeatSpaceEnum;
   @Input() public row: number;
   @Input() public emptySpacePerRowNumber: IEmptySpace;
@@ -17,31 +18,37 @@ export class SeatsComponent implements OnInit {
   public bookedSeats: TBookedSeatsMap;
 
   @ViewChildren('seatNumber') private seatNumber: QueryList<ElementRef>;
+  private sub: Subscription;
 
   constructor(
     private renderer2: Renderer2,
     private bookedSeatsService: BookedSeatsService
   ) {
+    this.sub = new Subscription();
   }
 
   ngOnInit() {
     this.setSeatsPerRowArray();
 
-    this.bookedSeatsService.getBookedRoomSeats.subscribe((val) => {
+    this.sub.add(this.bookedSeatsService.obsBookedRoomSeats.subscribe((val) => {
         this.bookedSeats = val;
         this.seatsPerRow.forEach(el => {
         const bookedSeat: string = val.get(this.seatId(el.id));
         if (bookedSeat != undefined) {
-          if (bookedSeat.length === 0) { // === null is booked, userID is booked by user
+          if (bookedSeat.valueOf() !== 'userId' && el.space !== SeatSpaceEnum.EMPTY) { // === null is booked, userID is booked by user
             el.space = SeatSpaceEnum.BOOKED;
             // if (el.id === bookedUserSeats) { // TODO
             //   show Notification
             // }
-            console.log('BookComponent', val);
           }
         }
       });
-    });
+        // console.log('BookComponent obsBookedRoomSeats', this.row, val, this.seatsPerRow);
+    }));
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   public selectSeat(seat: ISeat) {
@@ -52,14 +59,15 @@ export class SeatsComponent implements OnInit {
       this.renderer2.addClass(nativeElement, 'unselect');
       seat.space = SeatSpaceEnum.DEFAULT;
       this.bookedSeatsService.deleteBookedUserSeats(this.seatId(seat.id));
+      this.bookedSeats.delete(this.seatId(seat.id));
     } else {
       this.renderer2.removeClass(nativeElement, 'unselect');
       this.renderer2.addClass(nativeElement, 'select');
       seat.space = SeatSpaceEnum.SELECTED;
       this.bookedSeatsService.setBookedUserSeats(this.seatId(seat.id));
       this.bookedSeats.set(this.seatId(seat.id), 'userId');
-      this.bookedSeatsService.setBookedRoomSeats(this.bookedSeats);
     }
+    this.bookedSeatsService.updateBookedRoomSeats(this.bookedSeats);
   }
 
   private setSeatsPerRowArray() {
@@ -84,7 +92,7 @@ export class SeatsComponent implements OnInit {
   }
 
   private seatId(seatNumber: number): number {
-    return seatNumber * (this.row + 1);
+    return (this.row * 100) + seatNumber; // TODO: improve alg to calc seatId
   }
 
   // public rowForm: FormGroup;

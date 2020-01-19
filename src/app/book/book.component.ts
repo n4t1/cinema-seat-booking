@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookedSeatsService } from '@book/shared';
 
@@ -7,7 +7,7 @@ import { BookedSeatsService } from '@book/shared';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss']
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, OnDestroy {
   public moviePlayId: number;
   public roomId: number;
   public selectedTime: Date;
@@ -20,6 +20,10 @@ export class BookComponent implements OnInit {
 
   ngOnInit() {
     this.getParamMap();
+  }
+
+  ngOnDestroy() {
+    this.bookedSeatsService.onDestroy();
   }
 
   private getParamMap() {

@@ -53,7 +53,7 @@ button, input {
 ***************************************************/
 
 app-seats, app-book-information {
-  .seats-button {
+  .seats-button, .booked-seats-button {
     background: unset;
     border: solid 1px;
     box-sizing: border-box;
@@ -79,11 +79,15 @@ app-seats, app-book-information {
     }
   }
 
-.seats-button, .empty-seats-button {
+.seats-button, .empty-seats-button, .booked-seats-button {
     position: relative;
     width: 30px;
     height: 35px;
     margin: 2px;
+  }
+
+  .empty-seats-button, .booked-seats-button {
+    cursor: default;
   }
 
   @include styleTablet() {

@@ -7,7 +7,7 @@
         <div *ngFor="let seat of seatsPerRow">
           <ng-container [ngSwitch]="seat?.space">
             <div *ngSwitchCase="seatSpaceEnum.EMPTY" class="empty-seats-button"></div>
-            <div *ngSwitchCase="seatSpaceEnum.BOOKED" class="seats-button">
+            <div *ngSwitchCase="seatSpaceEnum.BOOKED" class="booked-seats-button">
               <mat-icon>face</mat-icon>
             </div>
             <button *ngSwitchDefault
