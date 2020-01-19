@@ -1,15 +1,13 @@
 import { IBookedRoomSeats, IBookedUserSeats } from './bookedSeatsREST.interface';
 import { IDeserialize } from '@api/core';
 
-export type TBookedSeatsMap = Map<number, boolean>;
+export type TBookedSeatsMap = Map<number, string>;
 
 export class BookedRoomSeatsDTO implements IDeserialize<BookedRoomSeatsDTO, IBookedRoomSeats> {
-  roomId: number;
   bookedSeats: TBookedSeatsMap;
 
   public deserialize(obj: IBookedRoomSeats): BookedRoomSeatsDTO {
-    this.roomId = obj.roomId;
-    this.bookedSeats = new Map(obj.booked_seats);
+    this.bookedSeats = new Map(obj.booked_seats.map(el => [el.key, el.value]));
     return this;
   }
 }
@@ -22,7 +20,7 @@ export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBoo
   public deserialize(obj: IBookedUserSeats): BookedUserSeatsDTO {
     this.id = obj.id;
     this.roomId = obj.roomId;
-    this.bookedSeats = new Map(obj.booked_seats);
+    this.bookedSeats = new Map(obj.booked_seats.map(el => [el.key, el.value]));
     return this;
   }
 }

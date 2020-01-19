@@ -8,20 +8,10 @@ import { ISeatsRows } from '@api/shared';
 })
 export class HallTemplateComponent implements OnInit {
   @Input() public rows: ISeatsRows[] = [];
-
-  @Input() private set hallId(value: number) {
-    this._hallId = value;
-    this.hallName = `Sala ${this.hallId}`;
-  }
-  private get hallId(): number {
-    return this._hallId;
-  }
-  private _hallId: number;
-  public hallName: string;
+  @Input() public hallId: number;
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

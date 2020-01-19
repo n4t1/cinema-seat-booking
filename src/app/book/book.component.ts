@@ -28,6 +28,6 @@ export class BookComponent implements OnInit {
     const selectedTimeNumber: number = +this.activatedRoute.snapshot.paramMap.get('selectedTimeNumber');
     this.selectedTime = new Date(selectedTimeNumber);
 
-    this.bookedSeatsService.setBookedSeatsInformation(this.roomId);
+    this.bookedSeatsService.getBookedRoomSeatsDoc(this.roomId, this.moviePlayId, selectedTimeNumber);
   }
 }

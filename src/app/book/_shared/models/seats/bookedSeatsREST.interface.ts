@@ -1,7 +1,6 @@
-export type TBookedSeatsREST = [number, boolean][];
+export type TBookedSeatsREST = {key: number, value: string}[];
 
 export interface IBookedRoomSeats {
-  roomId: number;
   booked_seats: TBookedSeatsREST;
 }
 

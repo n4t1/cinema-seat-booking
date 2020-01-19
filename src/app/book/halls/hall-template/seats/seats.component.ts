@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { IEmptySpace } from '@api/shared';
-import { BookedSeatsService, BookedUserSeatsDTO } from '@book/shared';
+import { BookedSeatsService, TBookedSeatsMap } from '@book/shared';
 
 @Component({
   selector: 'app-seats',
@@ -14,6 +14,7 @@ export class SeatsComponent implements OnInit {
   @Input() public seatsPerRowNumber: number;
 
   public seatsPerRow: ISeat[];
+  public bookedSeats: TBookedSeatsMap;
 
   @ViewChildren('seatNumber') private seatNumber: QueryList<ElementRef>;
 
@@ -25,6 +26,22 @@ export class SeatsComponent implements OnInit {
 
   ngOnInit() {
     this.setSeatsPerRowArray();
+
+    this.bookedSeatsService.getBookedRoomSeats.subscribe((val) => {
+        this.bookedSeats = val;
+        this.seatsPerRow.forEach(el => {
+        const bookedSeat: string = val.get(this.seatId(el.id));
+        if (bookedSeat != undefined) {
+          if (bookedSeat.length === 0) { // === null is booked, userID is booked by user
+            el.space = SeatSpaceEnum.BOOKED;
+            // if (el.id === bookedUserSeats) { // TODO
+            //   show Notification
+            // }
+            console.log('BookComponent', val);
+          }
+        }
+      });
+    });
   }
 
   public selectSeat(seat: ISeat) {
@@ -40,6 +57,8 @@ export class SeatsComponent implements OnInit {
       this.renderer2.addClass(nativeElement, 'select');
       seat.space = SeatSpaceEnum.SELECTED;
       this.bookedSeatsService.setBookedUserSeats(this.seatId(seat.id));
+      this.bookedSeats.set(this.seatId(seat.id), 'userId');
+      this.bookedSeatsService.setBookedRoomSeats(this.bookedSeats);
     }
   }
 
