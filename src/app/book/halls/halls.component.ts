@@ -8,15 +8,15 @@ import { HallsService, SeatsRowsDTO } from '@api/shared';
 })
 export class HallsComponent implements OnInit {
 
-  @Input() public set hallId(value: number) {
-    this._hallId = value;
+  @Input() public set roomId(value: number) {
+    this._roomId = value;
 
     this.getHallDetails();
   }
-  public get hallId(): number {
-    return this._hallId;
+  public get roomId(): number {
+    return this._roomId;
   }
-  public _hallId: number;
+  public _roomId: number;
   public rows: SeatsRowsDTO[];
 
   constructor(
@@ -27,7 +27,7 @@ export class HallsComponent implements OnInit {
   }
 
   private getHallDetails() {
-    this.hallsService.getHall(this.hallId).subscribe(hall => {
+    this.hallsService.getHall(this.roomId).subscribe(hall => {
       this.rows = hall.rows;
     });
   }

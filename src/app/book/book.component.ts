@@ -10,6 +10,7 @@ import { BookedSeatsService } from '@book/shared';
 export class BookComponent implements OnInit, OnDestroy {
   public moviePlayId: number;
   public roomId: number;
+  public selectedTimeNumber: number;
   public selectedTime: Date;
 
   constructor(
@@ -29,9 +30,9 @@ export class BookComponent implements OnInit, OnDestroy {
   private getParamMap() {
     this.moviePlayId = +this.activatedRoute.snapshot.paramMap.get('moviePlayId');
     this.roomId = +this.activatedRoute.snapshot.paramMap.get('roomId');
-    const selectedTimeNumber: number = +this.activatedRoute.snapshot.paramMap.get('selectedTimeNumber');
-    this.selectedTime = new Date(selectedTimeNumber);
+    this.selectedTimeNumber = +this.activatedRoute.snapshot.paramMap.get('selectedTimeNumber');
+    this.selectedTime = new Date(this.selectedTimeNumber);
 
-    this.bookedSeatsService.getBookedRoomSeatsDoc(this.roomId, this.moviePlayId, selectedTimeNumber);
+    this.bookedSeatsService.getBookedRoomSeatsDoc(this.roomId, this.moviePlayId, this.selectedTimeNumber);
   }
 }

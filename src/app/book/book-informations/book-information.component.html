@@ -8,5 +8,9 @@
         <label>Miejsce zajęte</label>
       </div>
     </div>
+    <div class="book-button">
+      <span class="selected-seats-counter">Wybrane miejsca: {{selectedSeatsCounter}}</span>
+      <button mat-raised-button (click)="clickBookUserSeats()">Rezerwuj</button>
+    </div>
   </div>
 </div>

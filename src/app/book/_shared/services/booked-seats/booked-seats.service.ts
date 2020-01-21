@@ -1,38 +1,49 @@
 import { Injectable } from '@angular/core';
-import { BookedRoomSeatsDTO, BookedUserSeatsDTO, IBookedRoomSeats, TBookedSeatsMap } from '../../models';
+import { BookedRoomSeatsDTO, BookedUserSeatsDTO, IBookedRoomSeats, IBookedUserSeats, TBookedSeatsMap } from '../../models';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { catchError, filter, first, map } from 'rxjs/operators';
-import { Observable, ReplaySubject, throwError } from 'rxjs';
+import { AsyncSubject, Observable, ReplaySubject, throwError } from 'rxjs';
+
+/** collection: book -> document: booked_room_seats -> collection: rooms -> collection: playedMovies -> collection: dates -> collection: booked_seats -> document: key: string, value: string [string, string][]
+ *                                                                                                                                                    -> ...
+ *
+ *                   -> document: booked-user-seats -> collection: users -> document: key: string, value: string [string, string][]
+ *                                                                                                   -> ...
+ *
+ */
 
 @Injectable()
 export class BookedSeatsService {
-  private bookedUserSeats: BookedUserSeatsDTO;
-
-  /** collection: book -> document: booked_room_seats -> collection: rooms -> collection: playedMovies -> collection: dates -> collection: booked_seats -> document: key: string, value: string [string, string][]
-   *                                                                                                                                                    -> ...
-   *
-   *                   -> document: booked-user-seats -> collection: users -> collection: booked_seats -> document: key: string, value: string [string, string][]
-   *                                                                                                   -> ...
-   *
-   */
-
   private bookedRoomSeatsDoc: AngularFirestoreDocument<IBookedRoomSeats>;
-  private bookedRoomSeats$: ReplaySubject<TBookedSeatsMap>;
-
+  private bookedRoomSeats$: ReplaySubject<TBookedSeatsMap> = new ReplaySubject<TBookedSeatsMap>(1);
+  private set nextBookedRoomSeats(val: TBookedSeatsMap) {
+    this.bookedRoomSeats$.next(val);
+  }
+  public get obsBookedRoomSeats(): Observable<TBookedSeatsMap> {
+    return this.bookedRoomSeats$.asObservable();
+  }
   private mockBookedSeatsChangeInterval: number;
+
+  private bookedUserSeatsDoc: AngularFirestoreDocument<IBookedUserSeats>;
+  private bookedUserSeats$: ReplaySubject<TBookedSeatsMap> = new ReplaySubject<TBookedSeatsMap>(1);
+  private set nextBookedUserSeats(val: TBookedSeatsMap) {
+    this.bookedUserSeats$.next(val);
+  }
+  public get obsBookedUserSeats(): Observable<TBookedSeatsMap> {
+    return this.bookedUserSeats$.asObservable();
+  }
+
+  private bookedUserSeatsLocal$: ReplaySubject<TBookedSeatsMap> = new ReplaySubject<TBookedSeatsMap>(1);
+  public set nextBookedUserSeatsLocal(val: TBookedSeatsMap) {
+    this.bookedUserSeatsLocal$.next(val);
+  }
+  public get obsBookedUserSeatsLocal(): Observable<TBookedSeatsMap> {
+    return this.bookedUserSeatsLocal$.asObservable();
+  }
 
   constructor(
     private angularFirestore: AngularFirestore
-  ) {
-    this.bookedUserSeats = new BookedUserSeatsDTO();
-    this.bookedUserSeats.bookedSeats = new Map<number, string>();
-
-    this.bookedRoomSeats$ = new ReplaySubject<TBookedSeatsMap>(1);
-  }
-
-  public setBookedSeatsInformation(roomId: number) {
-    this.bookedUserSeats.roomId = roomId;
-  }
+  ) {}
 
   public getBookedRoomSeatsDoc(roomId: number, playedMovieId: number, selectedTimeNumber: number) {
     this.bookedRoomSeatsDoc = this.angularFirestore.collection('book/booked_room_seats/rooms')
@@ -63,37 +74,80 @@ export class BookedSeatsService {
     ).subscribe((val) => {
       this.nextBookedRoomSeats = val.bookedSeats;
 
-      console.log('listenerBookedRoomSeatsValueChanges', val.bookedSeats );
+      console.log('listenerBookedRoomSeatsValueChanges', val.bookedSeats);
     });
   }
 
-  private set nextBookedRoomSeats(val: TBookedSeatsMap) {
-    this.bookedRoomSeats$.next(val);
+  public getBookedUserSeatsDoc(
+    roomId: number,
+    playedMovieId: number,
+    selectedTimeNumber: number,
+    bookedSeats: Map<number, string> = new Map<number, string>()
+  ): Observable<string> {
+    const createdId: string = this.angularFirestore.createId();
+    this.bookedUserSeatsDoc = this.angularFirestore.collection('book/booked-user-seats/users').doc(createdId);
+
+    const bookedUserSeats: BookedUserSeatsDTO = new BookedUserSeatsDTO();
+    bookedUserSeats.id = createdId;
+    bookedUserSeats.roomId = roomId;
+    bookedUserSeats.playedMovieId = playedMovieId;
+    bookedUserSeats.selectedTimeNumber = selectedTimeNumber;
+    bookedUserSeats.bookedSeats = bookedSeats;
+
+    const observer: AsyncSubject<string> = new AsyncSubject<string>();
+    this.bookedUserSeatsDoc.set(BookedUserSeatsDTO.serialize(bookedUserSeats))
+      .then(() => {
+        if (bookedSeats.size > 0) { this.setBookedRoomSeats(bookedSeats); }
+        observer.next(createdId);
+        observer.complete();
+        console.log('setBooedUserSeats', createdId);
+        // this.listenerBookedUserSeatsValueChanges();
+      })
+      .catch((error) => {
+        console.log(this.bookedUserSeatsDoc.ref.path, error);
+      });
+    return observer;
   }
 
-  public get obsBookedRoomSeats(): Observable<TBookedSeatsMap> {
-    return this.bookedRoomSeats$.asObservable();
+  private listenerBookedUserSeatsValueChanges() {
+    this.bookedUserSeatsDoc.valueChanges().pipe(
+      map((response: IBookedUserSeats) => {
+        return new BookedUserSeatsDTO().deserialize(response);
+      }),
+      catchError(error => {
+        console.log(this.bookedUserSeatsDoc.ref.path, error);
+        return throwError(error);
+      })
+    ).subscribe((val) => {
+      this.nextBookedUserSeats = val.bookedSeats;
+
+      console.log('listenerBookedUserSeatsValueChanges', val.bookedSeats);
+    });
   }
 
   private setBookedRoomSeats(bookedSeats: TBookedSeatsMap) {
-    this.bookedRoomSeatsDoc.set(this.createBookedRoomSeatsObj(bookedSeats));
+    const bookedRoomSeat: BookedRoomSeatsDTO = new BookedRoomSeatsDTO();
+    bookedRoomSeat.bookedSeats = bookedSeats;
+
+    this.bookedRoomSeatsDoc.set(BookedRoomSeatsDTO.serialize(bookedRoomSeat));
   }
 
   public updateBookedRoomSeats(bookedSeats: TBookedSeatsMap) {
-    this.bookedRoomSeatsDoc.update(this.createBookedRoomSeatsObj(bookedSeats));
+    const bookedRoomSeat: BookedRoomSeatsDTO = new BookedRoomSeatsDTO();
+    bookedRoomSeat.bookedSeats = bookedSeats;
+
+    this.bookedRoomSeatsDoc.update(BookedRoomSeatsDTO.serialize(bookedRoomSeat));
   }
 
-  private createBookedRoomSeatsObj(bookedSeats: TBookedSeatsMap): IBookedRoomSeats {
-    return {
-      booked_seats: Array
-        .from(bookedSeats.entries())
-        .map((el) => {
-          return {
-            key: el[0],
-            value: el[1]
-          };
-        })
-    };
+  public updateBookedUserSeats(bookedSeats: TBookedSeatsMap) {
+    const bookedUserSeats: BookedUserSeatsDTO = new BookedUserSeatsDTO();
+    bookedUserSeats.bookedSeats = bookedSeats;
+
+    this.bookedUserSeatsDoc.update({booked_seats: BookedUserSeatsDTO.serialize(bookedUserSeats).booked_seats} as Partial<IBookedUserSeats>);
+  }
+
+  public deletedBookedUserSeats() {
+    this.bookedUserSeatsDoc.delete();
   }
 
   private mockBookedSeatsChange() {
@@ -109,7 +163,7 @@ export class BookedSeatsService {
           const randSetOrDelete: number = Math.floor(Math.random() * (1 - 0 + 1) + 0);
           const randSeats: number = Math.floor(Math.random() * (1000 - 0 + 1) + 0);
           if (randSetOrDelete) {
-            val.set(randSeats, 'mockUserId22');
+            val.set(randSeats, '');
           } else {
             if (val.has(randSeats)) {
               val.delete(randSeats);
@@ -122,22 +176,6 @@ export class BookedSeatsService {
         this.updateBookedRoomSeats(val);
       });
     }, 3000);
-  }
-
-  public getBookedUserSeats() {
-
-  }
-
-  public saveBookedUserSeats(bookedSeats: BookedUserSeatsDTO) {
-
-  }
-
-  public setBookedUserSeats(seatId: number) {
-    this.bookedUserSeats.bookedSeats.set(seatId, null);
-  }
-
-  public deleteBookedUserSeats(seatId: number) {
-    this.bookedUserSeats.bookedSeats.delete(seatId);
   }
 
   public onDestroy() {

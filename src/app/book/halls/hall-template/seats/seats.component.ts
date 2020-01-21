@@ -1,54 +1,61 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { IEmptySpace } from '@api/shared';
-import { BookedSeatsService, TBookedSeatsMap } from '@book/shared';
-import { Subscription } from 'rxjs';
+import { TBookedSeatsMap } from '@book/shared';
 
 @Component({
   selector: 'app-seats',
   templateUrl: './seats.component.html',
   styleUrls: ['./seats.component.scss']
 })
-export class SeatsComponent implements OnInit, OnDestroy {
+export class SeatsComponent implements OnInit {
   public readonly seatSpaceEnum = SeatSpaceEnum;
+  public seatsPerRow: ISeat[];
+
+  @ViewChildren('seatNumber') private seatNumber: QueryList<ElementRef>;
+
   @Input() public row: number;
   @Input() public emptySpacePerRowNumber: IEmptySpace;
   @Input() public seatsPerRowNumber: number;
 
-  public seatsPerRow: ISeat[];
-  public bookedSeats: TBookedSeatsMap;
+  @Input()
+  private set bookedRoomSeats(val: TBookedSeatsMap) {
+    if (val == undefined) { return; }
+    this._bookedRoomSeats = val;
+    this.seatsPerRow.forEach(el => {
+      const bookedSeat: string = val.get(this.seatId(el.id));
+      if (bookedSeat != undefined) {
+        if (el.space !== SeatSpaceEnum.EMPTY) { // === null is booked, userID is booked by user
+          el.space = SeatSpaceEnum.BOOKED;
+          // if (el.id === bookedUserSeats) { // TODO
+          //   show Notification
+          // }
+        }
+      }
+    });
+    // console.log('BookComponent obsBookedRoomSeats', this.row, val, this.seatsPerRow);
+  }
+  private get bookedRoomSeats() {
+    return this._bookedRoomSeats;
+  }
+  private _bookedRoomSeats: TBookedSeatsMap;
 
-  @ViewChildren('seatNumber') private seatNumber: QueryList<ElementRef>;
-  private sub: Subscription;
+  @Input() private bookedUserSeats: TBookedSeatsMap;
+  @Output() private bookedUserSeatsChange: EventEmitter<TBookedSeatsMap> = new EventEmitter<TBookedSeatsMap>();
+  private set emitSetBookedUserSeatsChange(seatsId: number) {
+    this.bookedUserSeats.set(this.seatId(seatsId), '');
+    this.bookedUserSeatsChange.emit(this.bookedUserSeats);
+  }
+  private set emitDeletedBookedUserSeatsChange(seatsId: number) {
+    this.bookedUserSeats.delete(this.seatId(seatsId));
+    this.bookedUserSeatsChange.emit(this.bookedUserSeats);
+  }
 
   constructor(
-    private renderer2: Renderer2,
-    private bookedSeatsService: BookedSeatsService
-  ) {
-    this.sub = new Subscription();
-  }
+    private renderer2: Renderer2
+  ) {}
 
   ngOnInit() {
     this.setSeatsPerRowArray();
-
-    this.sub.add(this.bookedSeatsService.obsBookedRoomSeats.subscribe((val) => {
-        this.bookedSeats = val;
-        this.seatsPerRow.forEach(el => {
-        const bookedSeat: string = val.get(this.seatId(el.id));
-        if (bookedSeat != undefined) {
-          if (bookedSeat.valueOf() !== 'userId' && el.space !== SeatSpaceEnum.EMPTY) { // === null is booked, userID is booked by user
-            el.space = SeatSpaceEnum.BOOKED;
-            // if (el.id === bookedUserSeats) { // TODO
-            //   show Notification
-            // }
-          }
-        }
-      });
-        // console.log('BookComponent obsBookedRoomSeats', this.row, val, this.seatsPerRow);
-    }));
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
   public selectSeat(seat: ISeat) {
@@ -58,26 +65,33 @@ export class SeatsComponent implements OnInit, OnDestroy {
       this.renderer2.removeClass(nativeElement, 'select');
       this.renderer2.addClass(nativeElement, 'unselect');
       seat.space = SeatSpaceEnum.DEFAULT;
-      this.bookedSeatsService.deleteBookedUserSeats(this.seatId(seat.id));
-      this.bookedSeats.delete(this.seatId(seat.id));
+      this.emitDeletedBookedUserSeatsChange = seat.id;
     } else {
       this.renderer2.removeClass(nativeElement, 'unselect');
       this.renderer2.addClass(nativeElement, 'select');
       seat.space = SeatSpaceEnum.SELECTED;
-      this.bookedSeatsService.setBookedUserSeats(this.seatId(seat.id));
-      this.bookedSeats.set(this.seatId(seat.id), 'userId');
+      this.emitSetBookedUserSeatsChange = seat.id;
     }
-    this.bookedSeatsService.updateBookedRoomSeats(this.bookedSeats);
   }
 
   private setSeatsPerRowArray() {
+    let emptyCounter = 0;
     this.seatsPerRow = new Array<ISeat>(this.seatsPerRowNumber).fill({} as ISeat).map((el, i) => {
-      return {
-        seatNumber: i + 1,
-        formControl: this.seatNumberFormControlName(i),
+      const seat: ISeat = {
         space: this.isEmptySpace(i),
-        id: i
+        seatNumber: i + 1,
+        id: i,
+        formControl: null
       };
+      if (seat.space === SeatSpaceEnum.EMPTY) {
+        ++emptyCounter;
+      }
+      if (emptyCounter !== 0) {
+        seat.seatNumber -= emptyCounter;
+        seat.id -= emptyCounter;
+      }
+      seat.formControl = this.seatNumberFormControlName(seat.seatNumber);
+      return seat;
     });
   }
 
@@ -86,8 +100,10 @@ export class SeatsComponent implements OnInit, OnDestroy {
   }
 
   private isEmptySpace(seatNumber: number): SeatSpaceEnum {
-    if (!this.emptySpacePerRowNumber) { return SeatSpaceEnum.DEFAULT; }
-    const toSeat: number =  this.emptySpacePerRowNumber.fromSeat + this.emptySpacePerRowNumber.emptySpaceNumber;
+    if (!this.emptySpacePerRowNumber) {
+      return SeatSpaceEnum.DEFAULT;
+    }
+    const toSeat: number = this.emptySpacePerRowNumber.fromSeat + this.emptySpacePerRowNumber.emptySpaceNumber;
     return (seatNumber >= this.emptySpacePerRowNumber.fromSeat && seatNumber < toSeat) ? SeatSpaceEnum.EMPTY : SeatSpaceEnum.DEFAULT;
   }
 
@@ -106,10 +122,10 @@ export class SeatsComponent implements OnInit, OnDestroy {
 }
 
 enum SeatSpaceEnum {
-  EMPTY,
-  BOOKED,
-  SELECTED,
-  DEFAULT
+  EMPTY = 'EMPTY',
+  BOOKED = 'BOOKED',
+  SELECTED = 'SELECTED',
+  DEFAULT = 'DEFAULT'
 }
 
 interface ISeat {
