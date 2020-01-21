@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class LoginTemplateComponent implements OnInit {
   public email = new FormControl('', [Validators.required, Validators.email]);
-  public password = new FormControl('', [Validators.required]);
+  public name = new FormControl('', [Validators.required]);
+  public surname = new FormControl('', [Validators.required]);
+  public phone = new FormControl('', [Validators.required]);
   public show = true;
 
   constructor(
@@ -21,7 +23,7 @@ export class LoginTemplateComponent implements OnInit {
 
   public getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-        this.password.hasError('required') ? 'You must enter a value' :
+        // this.password.hasError('required') ? 'You must enter a value' :
         this.email.hasError('email') ? 'Not a valid email' :
             '';
   }

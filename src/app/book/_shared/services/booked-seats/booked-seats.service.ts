@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BookedRoomSeatsDTO, BookedUserSeatsDTO, IBookedRoomSeats, IBookedUserSeats, TBookedSeatsMap } from '../../models';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { catchError, filter, first, map } from 'rxjs/operators';
-import { AsyncSubject, Observable, ReplaySubject, throwError } from 'rxjs';
+import { AsyncSubject, Observable, ReplaySubject, Subscription, throwError } from 'rxjs';
 
 /** collection: book -> document: booked_room_seats -> collection: rooms -> collection: playedMovies -> collection: dates -> collection: booked_seats -> document: key: string, value: string [string, string][]
  *                                                                                                                                                    -> ...
@@ -41,6 +41,8 @@ export class BookedSeatsService {
     return this.bookedUserSeatsLocal$.asObservable();
   }
 
+  private sub: Subscription = new Subscription();
+
   constructor(
     private angularFirestore: AngularFirestore
   ) {}
@@ -56,7 +58,7 @@ export class BookedSeatsService {
   }
 
   private listenerBookedRoomSeatsValueChanges() {
-    this.bookedRoomSeatsDoc.valueChanges().pipe(
+    this.sub.add(this.bookedRoomSeatsDoc.valueChanges().pipe(
       filter((response: IBookedRoomSeats) => {
         if (response == undefined || Object.keys(response).length === 0) {
           this.setBookedRoomSeats(new Map<number, string>());
@@ -75,7 +77,7 @@ export class BookedSeatsService {
       this.nextBookedRoomSeats = val.bookedSeats;
 
       console.log('listenerBookedRoomSeatsValueChanges', val.bookedSeats);
-    });
+    }));
   }
 
   public getBookedUserSeatsDoc(
@@ -97,10 +99,12 @@ export class BookedSeatsService {
     const observer: AsyncSubject<string> = new AsyncSubject<string>();
     this.bookedUserSeatsDoc.set(BookedUserSeatsDTO.serialize(bookedUserSeats))
       .then(() => {
-        if (bookedSeats.size > 0) { this.setBookedRoomSeats(bookedSeats); }
+        if (bookedSeats.size > 0) {
+          this.updateBookedRoomSeats(bookedSeats);
+        }
         observer.next(createdId);
         observer.complete();
-        console.log('setBooedUserSeats', createdId);
+        // console.log('setBooedUserSeats', createdId);
         // this.listenerBookedUserSeatsValueChanges();
       })
       .catch((error) => {
@@ -110,7 +114,7 @@ export class BookedSeatsService {
   }
 
   private listenerBookedUserSeatsValueChanges() {
-    this.bookedUserSeatsDoc.valueChanges().pipe(
+    this.sub.add(this.bookedUserSeatsDoc.valueChanges().pipe(
       map((response: IBookedUserSeats) => {
         return new BookedUserSeatsDTO().deserialize(response);
       }),
@@ -122,7 +126,7 @@ export class BookedSeatsService {
       this.nextBookedUserSeats = val.bookedSeats;
 
       console.log('listenerBookedUserSeatsValueChanges', val.bookedSeats);
-    });
+    }));
   }
 
   private setBookedRoomSeats(bookedSeats: TBookedSeatsMap) {
@@ -133,17 +137,30 @@ export class BookedSeatsService {
   }
 
   public updateBookedRoomSeats(bookedSeats: TBookedSeatsMap) {
-    const bookedRoomSeat: BookedRoomSeatsDTO = new BookedRoomSeatsDTO();
-    bookedRoomSeat.bookedSeats = bookedSeats;
+    this.obsBookedRoomSeats.pipe(first()).subscribe((val) => {
+      bookedSeats.forEach((value, key) => {
+        val.set(key, value);
+      });
 
-    this.bookedRoomSeatsDoc.update(BookedRoomSeatsDTO.serialize(bookedRoomSeat));
+      const bookedRoomSeats: BookedUserSeatsDTO = new BookedUserSeatsDTO();
+      bookedRoomSeats.bookedSeats = val;
+      this.bookedRoomSeatsDoc.update(BookedRoomSeatsDTO.serialize(bookedRoomSeats));
+    });
   }
 
   public updateBookedUserSeats(bookedSeats: TBookedSeatsMap) {
-    const bookedUserSeats: BookedUserSeatsDTO = new BookedUserSeatsDTO();
-    bookedUserSeats.bookedSeats = bookedSeats;
+    this.obsBookedUserSeats.pipe(first()).subscribe((val) => {
+      bookedSeats.forEach((value, key) => {
+        val.set(key, value);
+      });
 
-    this.bookedUserSeatsDoc.update({booked_seats: BookedUserSeatsDTO.serialize(bookedUserSeats).booked_seats} as Partial<IBookedUserSeats>);
+      const bookedUserSeats: BookedUserSeatsDTO = new BookedUserSeatsDTO();
+      bookedUserSeats.bookedSeats = val;
+      this.bookedUserSeatsDoc.update(
+        {booked_seats: BookedUserSeatsDTO.serialize(bookedUserSeats).booked_seats} as Partial<IBookedUserSeats>
+      );
+    });
+
   }
 
   public deletedBookedUserSeats() {
@@ -180,6 +197,11 @@ export class BookedSeatsService {
 
   public onDestroy() {
     clearInterval(this.mockBookedSeatsChangeInterval);
+    this.sub.unsubscribe();
+    this.sub = new Subscription();
+    this.bookedUserSeatsLocal$ = new ReplaySubject<TBookedSeatsMap>(1);
+    this.bookedUserSeats$ = new ReplaySubject<TBookedSeatsMap>(1);
+    this.bookedRoomSeats$ = new ReplaySubject<TBookedSeatsMap>(1);
     console.log('mockBookedSeatsChange', 'INTERVAL clear');
   }
 

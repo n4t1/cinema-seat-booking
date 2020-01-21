@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { IEmptySpace } from '@api/shared';
 import { TBookedSeatsMap } from '@book/shared';
+import { AsyncSubject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-seats',
@@ -21,16 +22,18 @@ export class SeatsComponent implements OnInit {
   private set bookedRoomSeats(val: TBookedSeatsMap) {
     if (val == undefined) { return; }
     this._bookedRoomSeats = val;
-    this.seatsPerRow.forEach(el => {
-      const bookedSeat: string = val.get(this.seatId(el.id));
-      if (bookedSeat != undefined) {
-        if (el.space !== SeatSpaceEnum.EMPTY) { // === null is booked, userID is booked by user
-          el.space = SeatSpaceEnum.BOOKED;
-          // if (el.id === bookedUserSeats) { // TODO
-          //   show Notification
-          // }
+    this.seatsPerRowCreated$.subscribe(() => {
+      this.seatsPerRow.forEach(el => {
+        const bookedSeat: string = val.get(this.seatId(el.id));
+        if (bookedSeat != undefined) {
+          if (el.space !== SeatSpaceEnum.EMPTY) { // === null is booked, userID is booked by user
+            el.space = SeatSpaceEnum.BOOKED;
+            // if (el.id === bookedUserSeats) { // TODO
+            //   show Notification
+            // }
+          }
         }
-      }
+      });
     });
     // console.log('BookComponent obsBookedRoomSeats', this.row, val, this.seatsPerRow);
   }
@@ -38,6 +41,7 @@ export class SeatsComponent implements OnInit {
     return this._bookedRoomSeats;
   }
   private _bookedRoomSeats: TBookedSeatsMap;
+  private seatsPerRowCreated$: AsyncSubject<void> = new AsyncSubject<void>();
 
   @Input() private bookedUserSeats: TBookedSeatsMap;
   @Output() private bookedUserSeatsChange: EventEmitter<TBookedSeatsMap> = new EventEmitter<TBookedSeatsMap>();
@@ -93,6 +97,8 @@ export class SeatsComponent implements OnInit {
       seat.formControl = this.seatNumberFormControlName(seat.seatNumber);
       return seat;
     });
+    this.seatsPerRowCreated$.next();
+    this.seatsPerRowCreated$.complete();
   }
 
   private seatNumberFormControlName(seatNumber: number): string {

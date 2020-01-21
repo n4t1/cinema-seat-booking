@@ -79,11 +79,18 @@ app-seats, app-book-information {
     }
   }
 
-.seats-button, .empty-seats-button, .booked-seats-button {
+  .seats-button, .empty-seats-button, .booked-seats-button {
     position: relative;
     width: 30px;
     height: 35px;
     margin: 2px;
+
+    mat-icon {
+      font-size: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .empty-seats-button, .booked-seats-button {
@@ -91,7 +98,7 @@ app-seats, app-book-information {
   }
 
   @include styleTablet() {
-    .seats-button, .empty-seats-button {
+    .seats-button, .empty-seats-button, .booked-seats-button {
       // FIXME: use transform: scale() to change size of hall
       width: 20px;
       height: 25px;
@@ -99,7 +106,7 @@ app-seats, app-book-information {
   }
 
   @include styleMobile() {
-    .seats-button, .empty-seats-button {
+    .seats-button, .empty-seats-button, .booked-seats-button {
       // FIXME: use transform: scale() to change size of hall
       width: 14px;
       height: 20px;
