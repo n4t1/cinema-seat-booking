@@ -95,6 +95,10 @@ export class BookedSeatsService {
     bookedUserSeats.playedMovieId = playedMovieId;
     bookedUserSeats.selectedTimeNumber = selectedTimeNumber;
     bookedUserSeats.bookedSeats = bookedSeats;
+    bookedUserSeats.email = null;
+    bookedUserSeats.name = null;
+    bookedUserSeats.surname = null;
+    bookedUserSeats.phone = null;
 
     const observer: AsyncSubject<string> = new AsyncSubject<string>();
     this.bookedUserSeatsDoc.set(BookedUserSeatsDTO.serialize(bookedUserSeats))
@@ -160,7 +164,20 @@ export class BookedSeatsService {
         {booked_seats: BookedUserSeatsDTO.serialize(bookedUserSeats).booked_seats} as Partial<IBookedUserSeats>
       );
     });
+  }
 
+  public updateBookedUserSeatsInformation(email: string, name: string, surname: string, phone: string): Observable<void> {
+    const observer: AsyncSubject<void> = new AsyncSubject<void>();
+    this.bookedUserSeatsDoc.update(
+      {email: email, name: name, surname: surname, phone: phone } as Partial<IBookedUserSeats>
+    ).then(() => {
+      observer.next();
+      observer.complete();
+    })
+      .catch((error) => {
+        console.log(this.bookedUserSeatsDoc.ref.path, error);
+      });
+    return observer;
   }
 
   public deletedBookedUserSeats() {

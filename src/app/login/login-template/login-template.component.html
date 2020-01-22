@@ -1,7 +1,15 @@
 <div class="container">
   <div class="content">
     <div>
-      <mat-card>
+      <ng-template #accepted>
+        <div>
+          <span>
+            Zarezerwowano wybrane miejsca, twój nr rezerwacji: {{numb}}.
+            <p class="router-link"><a routerLink="/main">Powrót do repertuaru</a></p>
+          </span>
+        </div>
+      </ng-template>
+      <mat-card *ngIf="!accept; else accepted">
         <mat-card-header>
           <mat-card-title>Login</mat-card-title>
           <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
@@ -11,25 +19,25 @@
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Imię</mat-label>
-                <input matInput placeholder="Enter your email" [formControl]="name" required>
+                <input matInput placeholder="Enter your email" type="text" [formControl]="name" required>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
-                <!--              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+                <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Nazwisko</mat-label>
-                <input matInput placeholder="Enter your email" [formControl]="surname" required>
+                <input matInput placeholder="Enter your email" type="text" [formControl]="surname" required>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
-                <!--              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+                <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Enter your email" [formControl]="email" required>
+                <input matInput placeholder="Enter your email" type="email" [formControl]="email" required>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
                 <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
@@ -38,10 +46,10 @@
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Numer telefonu</mat-label>
-                <input matInput placeholder="Enter your email" [formControl]="phone" required>
+                <input matInput placeholder="Enter your email" type="tel" [formControl]="phone" required>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
-                <!--              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+                <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
 
@@ -63,7 +71,9 @@
           <div class="container">
             <div class="content">
               <div class="login-button">
-                <button mat-button (click)="submit()">Akceptuję</button>
+                <button mat-button (click)="submit()"
+                        [disabled]="email.invalid || name.invalid || surname.invalid || phone.invalid">Akceptuję
+                </button>
               </div>
             </div>
           </div>

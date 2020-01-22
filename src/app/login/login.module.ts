@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { LoginTemplateModule } from './login-template/login-template.module';
-import { SharedModule } from '@api/shared';
+import { CinemaNameModule, SharedModule } from '@api/shared';
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import { SharedModule } from '@api/shared';
     CommonModule,
     LoginRoutingModule,
     LoginTemplateModule,
-    SharedModule
+    SharedModule,
+    CinemaNameModule
   ]
 })
 export class LoginModule { }

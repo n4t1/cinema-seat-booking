@@ -31,6 +31,10 @@ export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBoo
   playedMovieId: number;
   selectedTimeNumber: number;
   bookedSeats: TBookedSeatsMap;
+  email?: string;
+  name?: string;
+  surname?: string;
+  phone?: string;
 
   public static serialize(dto: BookedUserSeatsDTO): IBookedUserSeats {
     return {
@@ -45,7 +49,11 @@ export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBoo
             key: el[0],
             value: el[1]
           };
-        })
+        }),
+      email: dto.email,
+      name: dto.name,
+      surname: dto.surname,
+      phone: dto.phone,
     };
   }
 
