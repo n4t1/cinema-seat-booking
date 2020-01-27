@@ -11,69 +11,46 @@
       </ng-template>
       <mat-card *ngIf="!accept; else accepted">
         <mat-card-header>
-          <mat-card-title>Login</mat-card-title>
-          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+          <mat-card-title>Podaj Swoje dane:</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form [formGroup]="">
+          <form [formGroup]="informationForm" (ngSubmit)="submit()" (keydown)="keyDown($event)">
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Imię</mat-label>
-                <input matInput placeholder="Enter your email" type="text" [formControl]="name" required>
-                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                <!-- <mat-hint>Hint</mat-hint> -->
-                <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput placeholder="Imię" type="text" [formControl]="infoF.firstName" required>
+                <mat-error *ngIf="infoF.firstName.hasError('required')">{{invalidMessage.enterValue}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Nazwisko</mat-label>
-                <input matInput placeholder="Enter your email" type="text" [formControl]="surname" required>
-                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                <!-- <mat-hint>Hint</mat-hint> -->
-                <mat-error *ngIf="surname.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput placeholder="Nazwisko" type="text" [formControl]="infoF.lastName" required>
+                <mat-error *ngIf="infoF.lastName.hasError('required')">{{invalidMessage.enterValue}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Enter your email" type="email" [formControl]="email" required>
-                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                <!-- <mat-hint>Hint</mat-hint> -->
-                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput placeholder="Email" type="email" [formControl]="infoF.email" email required>
+                <mat-error *ngIf="infoF.email.hasError('required')">{{invalidMessage.enterValue}}</mat-error>
+                <mat-error *ngIf="infoF.email.hasError('pattern')">{{invalidMessage.invalidEmail}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Numer telefonu</mat-label>
-                <input matInput placeholder="Enter your email" type="tel" [formControl]="phone" required>
-                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                <!-- <mat-hint>Hint</mat-hint> -->
-                <mat-error *ngIf="phone.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput placeholder="Telefon" type="tel" [formControl]="infoF.tel" required>
+                <mat-error *ngIf="infoF.tel.hasError('required')">{{invalidMessage.enterValue}}</mat-error>
               </mat-form-field>
             </div>
-
-            <!--                    <div class="form-field">-->
-            <!--                        <mat-form-field appearance="outline" floatLabel="always">-->
-            <!--                            <mat-label>Password</mat-label>-->
-            <!--                            <input matInput placeholder="Enter your password" [type]="show ? 'password' : 'text'"-->
-            <!--                                [formControl]="password" required>-->
-            <!--                            <button mat-icon-button matSuffix (click)="show = !show" [attr.aria-label]="'Show password'"-->
-            <!--                                [attr.aria-pressed]="show">-->
-            <!--                                <mat-icon>{{show ? 'visibility' : 'visibility_off'}}</mat-icon>-->
-            <!--                            </button>-->
-            <!--                            <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>-->
-            <!--                        </mat-form-field>-->
-            <!--                    </div>-->
           </form>
         </mat-card-content>
         <mat-card-actions>
           <div class="container">
             <div class="content">
               <div class="login-button">
-                <button mat-button (click)="submit()"
-                        [disabled]="email.invalid || name.invalid || surname.invalid || phone.invalid">Akceptuję
-                </button>
+                <button mat-button type="submit" [disabled]="informationForm.invalid">Akceptuję</button>
               </div>
             </div>
           </div>
@@ -82,3 +59,20 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<!--                    <div class="form-field">-->
+<!--                        <mat-form-field appearance="outline" floatLabel="always">-->
+<!--                            <mat-label>Password</mat-label>-->
+<!--                            <input matInput placeholder="Enter your password" [type]="show ? 'password' : 'text'"-->
+<!--                                [formControl]="password" required>-->
+<!--                            <button mat-icon-button matSuffix (click)="show = !show" [attr.aria-label]="'Show password'"-->
+<!--                                [attr.aria-pressed]="show">-->
+<!--                                <mat-icon>{{show ? 'visibility' : 'visibility_off'}}</mat-icon>-->
+<!--                            </button>-->
+<!--                            <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->

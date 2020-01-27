@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookedSeatsService } from '@book/shared';
 
@@ -9,10 +9,21 @@ import { BookedSeatsService } from '@book/shared';
   styleUrls: ['./login-template.component.scss']
 })
 export class LoginTemplateComponent implements OnInit {
-  public email = new FormControl('', [Validators.required, Validators.email]);
-  public name = new FormControl('', [Validators.required]);
-  public surname = new FormControl('', [Validators.required]);
-  public phone = new FormControl('', [Validators.required]);
+  private readonly emailPattern: RegExp = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+  public informationForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    tel: new FormControl('', [Validators.required])
+  });
+  public get infoF(): {[key: string]: AbstractControl;} {
+    return this.informationForm.controls;
+  }
+  public invalidMessage = {
+    enterValue: 'Musisz podać wartość',
+    invalidEmail: 'Niepoprawny email'
+  };
+
   public show = true;
 
   public accept = false;
@@ -27,15 +38,6 @@ export class LoginTemplateComponent implements OnInit {
   ngOnInit() {
   }
 
-  public getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.name.hasError('required') ? 'You must enter a value' :
-        this.surname.hasError('required') ? 'You must enter a value' :
-          this.phone.hasError('required') ? 'You must enter a value' :
-            this.email.hasError('email') ? 'Not a valid email' :
-              '';
-  }
-
   public submit() {
     // this.bookedSeatsService.updateBookedUserSeatsInformation(this.email.value, this.name.value, this.surname.value, this.phone.value).subscribe(() => {
     setTimeout(() => {
@@ -44,5 +46,11 @@ export class LoginTemplateComponent implements OnInit {
     }, 300);
     // });
     // this.router.navigate(['book']);
+  }
+
+  public keyDown(event) {
+    if (event.keyCode === 13) {
+      this.submit();
+    }
   }
 }

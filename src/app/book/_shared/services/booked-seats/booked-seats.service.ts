@@ -96,9 +96,9 @@ export class BookedSeatsService {
     bookedUserSeats.selectedTimeNumber = selectedTimeNumber;
     bookedUserSeats.bookedSeats = bookedSeats;
     bookedUserSeats.email = null;
-    bookedUserSeats.name = null;
-    bookedUserSeats.surname = null;
-    bookedUserSeats.phone = null;
+    bookedUserSeats.firstName = null;
+    bookedUserSeats.lastName = null;
+    bookedUserSeats.tel = null;
 
     const observer: AsyncSubject<string> = new AsyncSubject<string>();
     this.bookedUserSeatsDoc.set(BookedUserSeatsDTO.serialize(bookedUserSeats))
@@ -166,10 +166,10 @@ export class BookedSeatsService {
     });
   }
 
-  public updateBookedUserSeatsInformation(email: string, name: string, surname: string, phone: string): Observable<void> {
+  public updateBookedUserSeatsInformation(email: string, firstName: string, lastName: string, tel: string): Observable<void> {
     const observer: AsyncSubject<void> = new AsyncSubject<void>();
     this.bookedUserSeatsDoc.update(
-      {email: email, name: name, surname: surname, phone: phone } as Partial<IBookedUserSeats>
+      {email: email, firstName: firstName, lastName: lastName, tel: tel } as Partial<IBookedUserSeats>
     ).then(() => {
       observer.next();
       observer.complete();

@@ -32,9 +32,9 @@ export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBoo
   selectedTimeNumber: number;
   bookedSeats: TBookedSeatsMap;
   email?: string;
-  name?: string;
-  surname?: string;
-  phone?: string;
+  firstName?: string;
+  lastName?: string;
+  tel?: string;
 
   public static serialize(dto: BookedUserSeatsDTO): IBookedUserSeats {
     return {
@@ -51,9 +51,9 @@ export class BookedUserSeatsDTO implements IDeserialize<BookedUserSeatsDTO, IBoo
           };
         }),
       email: dto.email,
-      name: dto.name,
-      surname: dto.surname,
-      phone: dto.phone,
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+      tel: dto.tel,
     };
   }
 

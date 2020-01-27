@@ -11,7 +11,7 @@ export interface IBookedUserSeats {
   selected_time_number: number;
   booked_seats: TBookedSeatsREST;
   email?: string;
-  name?: string;
-  surname?: string;
-  phone?: string;
+  firstName?: string;
+  lastName?: string;
+  tel?: string;
 }
