@@ -14,6 +14,8 @@ export class HallTemplateComponent implements OnInit, OnDestroy {
 
   public bookedRoomSeats: TBookedSeatsMap;
   public bookedUserSeats: TBookedSeatsMap = new Map<number, string>();
+  public allowedBookedUserSeats = true;
+  public clickSeat: boolean;
 
   private sub: Subscription = new Subscription();
 
@@ -34,6 +36,8 @@ export class HallTemplateComponent implements OnInit, OnDestroy {
   public bookedUserSeatsChange(event: TBookedSeatsMap) {
     this.bookedUserSeats = event;
     this.bookedSeatsService.nextBookedUserSeatsLocal = this.bookedUserSeats;
-    console.log('bookedUserSeatsChange', this.bookedUserSeats);
+    this.allowedBookedUserSeats = (this.bookedSeatsService.maxAllowedBookedUserSeatsLocal !==  this.bookedUserSeats.size);
+    this.bookedSeatsService.nextAllowedBookedUserSeats = this.allowedBookedUserSeats;
+    this.clickSeat = !this.clickSeat;
   }
 }

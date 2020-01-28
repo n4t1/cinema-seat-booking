@@ -80,7 +80,6 @@ export class RepertuarService {
       map(
         response => {
           const deserializedResponse = new RepertuarDTO().deserialize(response);
-          // console.log('getRepertuar: ', deserializedResponse);
           return deserializedResponse;
         },
         catchError(error => {

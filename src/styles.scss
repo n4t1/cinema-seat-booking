@@ -93,7 +93,7 @@ app-seats, app-book-information {
     }
   }
 
-  .empty-seats-button, .booked-seats-button {
+  .empty-seats-button, .booked-seats-button, .seats-button:disabled {
     cursor: default;
   }
 

@@ -52,7 +52,6 @@ export class HallsService {
       map(
         response => {
           const deserializedResponse = new HallsDTO().deserialize(response);
-          // console.log('getHalls: ', deserializedResponse);
           return deserializedResponse;
         },
         catchError(error => {

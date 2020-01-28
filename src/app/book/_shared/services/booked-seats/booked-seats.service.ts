@@ -41,6 +41,23 @@ export class BookedSeatsService {
     return this.bookedUserSeatsLocal$.asObservable();
   }
 
+  private showBookedUserSeatsNotification$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  public set nextShowBookedUserSeatsNotification(val: boolean ) {
+    this.showBookedUserSeatsNotification$.next(val);
+  }
+  public get obsShowBookedUserSeatsNotification(): Observable<boolean> {
+    return this.showBookedUserSeatsNotification$.asObservable();
+  }
+
+  public readonly maxAllowedBookedUserSeatsLocal = 10;
+  private allowedBookedUserSeats$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
+  public set nextAllowedBookedUserSeats(val: boolean ) {
+    this.allowedBookedUserSeats$.next(val);
+  }
+  public get obsAllowedBookedUserSeats(): Observable<boolean> {
+    return this.allowedBookedUserSeats$.asObservable();
+  }
+
   private sub: Subscription = new Subscription();
 
   constructor(
@@ -75,8 +92,6 @@ export class BookedSeatsService {
       })
     ).subscribe((val) => {
       this.nextBookedRoomSeats = val.bookedSeats;
-
-      console.log('listenerBookedRoomSeatsValueChanges', val.bookedSeats);
     }));
   }
 
@@ -128,8 +143,6 @@ export class BookedSeatsService {
       })
     ).subscribe((val) => {
       this.nextBookedUserSeats = val.bookedSeats;
-
-      console.log('listenerBookedUserSeatsValueChanges', val.bookedSeats);
     }));
   }
 

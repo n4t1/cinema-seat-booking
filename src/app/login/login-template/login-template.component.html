@@ -14,7 +14,7 @@
           <mat-card-title>Podaj Swoje dane:</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form [formGroup]="informationForm" (ngSubmit)="submit()" (keydown)="keyDown($event)">
+          <form [formGroup]="informationForm" (keydown)="keyDown($event)">
             <div class="form-field">
               <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>Imię</mat-label>
@@ -50,7 +50,7 @@
           <div class="container">
             <div class="content">
               <div class="login-button">
-                <button mat-button type="submit" [disabled]="informationForm.invalid">Akceptuję</button>
+                <button mat-button type="submit" (click)="submit()" [disabled]="informationForm.invalid">Akceptuję</button>
               </div>
             </div>
           </div>

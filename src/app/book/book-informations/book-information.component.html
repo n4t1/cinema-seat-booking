@@ -8,7 +8,13 @@
         <label>Miejsce zajęte</label>
       </div>
     </div>
-    <div class="book-button">
+    <div class="booked-user-seats-notify" *ngIf="showBookedUserSeatsNotification">
+      <h4>Wybrane miejsca są niedostępne</h4>
+    </div>
+    <div class="max-allowed-booked-user-seats-notify" *ngIf="!allowedBookedUserSeat">
+      <span>Nie można zarezerwować więcej niż {{maxAllowedBookedUserSeat}} miejsc</span>
+    </div>
+    <div class="book-info">
       <span class="selected-seats-counter">Wybrane miejsca: {{selectedSeatsCounter}}</span>
       <button mat-raised-button (click)="clickBookUserSeats()">Rezerwuj</button>
     </div>

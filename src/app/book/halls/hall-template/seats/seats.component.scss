@@ -27,6 +27,11 @@
       .row-form {
         display: flex;
         justify-content: center;
+
+        .booked-by-other-user {
+          border: solid 1px red;
+          color: red;
+        }
       }
     }
   }

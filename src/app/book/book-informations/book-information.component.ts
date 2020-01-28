@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 })
 export class BookInformationComponent implements OnInit, OnDestroy {
   public selectedSeatsCounter = 0;
+  public showBookedUserSeatsNotification = false;
+  public maxAllowedBookedUserSeat: number;
+  public allowedBookedUserSeat = true;
 
   @Input() roomId: number;
   @Input() moviePlayId: number;
@@ -21,12 +24,26 @@ export class BookInformationComponent implements OnInit, OnDestroy {
   constructor(
     private bookedSeatsService: BookedSeatsService,
     private router: Router
-  ) { }
+  ) {
+    this.maxAllowedBookedUserSeat = this.bookedSeatsService.maxAllowedBookedUserSeatsLocal;
+  }
 
   ngOnInit() {
     this.sub.add(this.bookedSeatsService.obsBookedUserSeatsLocal.subscribe((val) => {
       this.bookedUserSeats = val;
       this.selectedSeatsCounter = this.bookedUserSeats.size;
+    }));
+
+    this.sub.add(this.bookedSeatsService.obsShowBookedUserSeatsNotification.subscribe((val) => {
+      if (this.showBookedUserSeatsNotification !== val) {
+        this.showBookedUserSeatsNotification = val;
+      }
+    }));
+
+    this.sub.add(this.bookedSeatsService.obsAllowedBookedUserSeats.subscribe((val) => {
+      if (this.allowedBookedUserSeat !== val) {
+        this.allowedBookedUserSeat = val;
+      }
     }));
   }
 
@@ -35,6 +52,7 @@ export class BookInformationComponent implements OnInit, OnDestroy {
   }
 
   public clickBookUserSeats() {
+    this.showBookedUserSeatsNotification = false;
     this.bookedSeatsService.getBookedUserSeatsDoc(
       this.roomId,
       this.moviePlayId,

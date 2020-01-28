@@ -22,7 +22,6 @@ export class MovieTMDBService {
           const deserializedResponse = new MovieDetailsDTO().deserialize(
             response
           );
-          // console.log('getMovieDetails: ', deserializedResponse);
           return deserializedResponse;
         },
         catchError(error => {
@@ -46,7 +45,6 @@ export class MovieTMDBService {
           const deserializedResponse = new QueryMoviesDTO().deserialize(
             response
           );
-          // console.log('getSearchFromQueryMovie: ', deserializedResponse);
           return deserializedResponse;
         },
         catchError(error => {
